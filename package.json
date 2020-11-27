@@ -3,12 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "nodemon server/index.js",
+    "migrate": "npx sequelize-cli db:migrate",
+
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.0-beta.11",
     "vue-router": "^3.2.0"
@@ -22,6 +30,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "graphql-tag": "^2.9.0",
+    "sequelize-cli": "^6.2.0",
     "vue-cli-plugin-apollo": "~0.22.2",
     "vue-template-compiler": "^2.6.11"
   }
