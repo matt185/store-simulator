@@ -72,7 +72,7 @@ module.exports = async (_, {
 
     let role = "user"
     if (allUser.length === 0) {
-        role = "admin"
+        role = "master"
     }
     let hashedPsw = await bcrypt.hash(password, 10)
 

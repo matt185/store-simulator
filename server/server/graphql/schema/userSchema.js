@@ -3,10 +3,7 @@ const {
 } = require("apollo-server-express");
 
 module.exports = gql `
-#*Type definitions
-
-
-
+#* User type definitions
 type User{
     userId:String
     username: String!
@@ -44,5 +41,7 @@ extend type Mutation{
     signUp(username:String!, email:String!,password:String!):Auth
     signIn(username:String!,password:String!):Auth
     logout:Boolean
+    manageRole(username:String!, role:String!):Boolean
+    deleteUser(username:String!):Boolean
 }
 `
