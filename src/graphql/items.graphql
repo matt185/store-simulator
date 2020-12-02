@@ -1,0 +1,10 @@
+query items{
+    items{
+        itemId
+        itemClass
+        itemName 
+        amount
+        minAmount
+        price
+    }
+}
