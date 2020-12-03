@@ -1,7 +1,9 @@
 require('dotenv').config();
 //const db = require('./database/models');
 const app = require('./server/app');
-const PORT = process.env.PORT || 4000;
+const {
+    SERVER_PORT
+} = require('./server/constant')
 const {
     sequelize
 } = require("./database/models");
@@ -14,8 +16,8 @@ const {
 
         //* initialize express server
 
-        app.listen(PORT, () => {
-            console.log(`app running on http://localhost:${PORT}/graphql`)
+        app.listen(SERVER_PORT, () => {
+            console.log(`app running on http://localhost:${SERVER_PORT}/graphql`)
         })
     } catch (error) {
         console.error('Unable to connect to the database:', error);
