@@ -1,0 +1,12 @@
+mutation SignIn ($username:String!, $password:String!){
+    signIn(username:$username, password:$password){
+        user{
+            username
+            role
+        }
+        error{
+            field
+            message
+        }
+    }
+}

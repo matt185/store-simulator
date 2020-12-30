@@ -1,6 +1,23 @@
 <template>
   <div id="itemTable">
-    <table border="1px" id="table">
+    <md-card v-for="(item,i) in items" :key="i">
+      <md-card-header>
+        <md-card-media md-big>
+          <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
+        </md-card-media>
+        <md-card-header-text>
+          <div class="md-subhead">{{item.itemId}}</div>
+          <div class="md-title">{{item.itemName}}</div>
+          <div class="md-subhead">{{item.itemClass}}</div>
+        </md-card-header-text>
+      </md-card-header>
+
+      <md-card-actions>
+        <md-button></md-button>
+        <md-button>Action</md-button>
+      </md-card-actions>
+    </md-card>
+    <!-- <table border="1px" id="table">
       <tr>
         <td class="head"></td>
         <td class="head">id</td>
@@ -17,7 +34,7 @@
         <td>{{item.amount}}</td>
         <td>{{item.price}}</td>
       </tr>
-    </table>
+    </table>-->
   </div>
 </template>
 
@@ -25,6 +42,9 @@
 import gql from "graphql-tag";
 export default {
   name: "HelloWorld",
+  data: () => {
+    return {};
+  },
   apollo: {
     items: gql`
       query {
@@ -37,6 +57,15 @@ export default {
           price
         }
       }
+    `,
+    me: gql`
+      query {
+        me {
+          userId
+          username
+          role
+        }
+      }
     `
   }
 };
@@ -46,7 +75,7 @@ export default {
 <style scoped>
 #itemTable {
   display: flex;
-  flex-direction: column;
+
   align-items: center;
 }
 h3 {
@@ -62,5 +91,14 @@ li {
 }
 a {
   color: #42b983;
+}
+.md-card {
+  width: 300px;
+  margin: 4px;
+  display: inline-block;
+  vertical-align: top;
+}
+.itemImg {
+  width: 120px;
 }
 </style>

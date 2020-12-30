@@ -1,6 +1,3 @@
-const {
-    User
-} = require('./../../../../database/models')
 const bcrypt = require('bcrypt')
 require('dotenv').config();
 
@@ -9,7 +6,8 @@ module.exports = async (_, {
     email,
     password
 }, {
-    req
+    req,
+    User
 }) => {
 
     //*  check on username
@@ -88,7 +86,6 @@ module.exports = async (_, {
         }
     })
     req.session.userId = newUser.userId
-    console.log(req.session.userId)
     return {
         user: newUser
     }

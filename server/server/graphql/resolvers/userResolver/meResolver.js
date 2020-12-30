@@ -2,10 +2,13 @@ const {
     User
 } = require('./../../../../database/models')
 module.exports = async (_, __, {
-    req
+    req,
+
+    User
+
 
 }) => {
-    console.log(req.session.userId)
+    console.log("assadsafdsafdsåå", req.session.userId)
     if (!req.session.userId) {
         return null
     }

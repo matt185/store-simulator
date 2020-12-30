@@ -15,3 +15,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.home {
+  margin-top: 20px;
+}
+</style>>
+
+

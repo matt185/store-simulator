@@ -32,10 +32,15 @@ const defaultOptions = {
   websocketsOnly: false,
   // Is being rendered on the server?
   ssr: false,
-
+  // mode: "no-cors",
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
   // httpLinkOptions property of defaultOptions.
+  httpLinkOptions: {
+    origin: false,
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "X-Forwarded-Proto", "Cookie", "Set-Cookie"],
+    credentials: 'include'
+  },
   // link: myLink
 
   // Override default cache
@@ -65,10 +70,11 @@ export function createProvider(options = {}) {
 
   // Create vue apollo provider
   const apolloProvider = new VueApollo({
+    credentials: 'include',
     defaultClient: apolloClient,
     defaultOptions: {
       $query: {
-        // fetchPolicy: 'cache-and-network',
+        fetchPolicy: 'cache-and-network',
       },
     },
     errorHandler(error) {

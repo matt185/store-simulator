@@ -11,16 +11,25 @@ const {
 } = require('apollo-server-express');
 const typeDefs = require('./graphql/schema')
 const resolvers = require('./graphql/resolvers/resolvers')
-const User = require('./../database/models')
+const {
+    User
+} = require('./../database/models')
 const {
     __prod__
-} = require('./constant')
+} = require('./constant');
+
 //* setup express server
 
 const app = express()
 
-app.use(cors())
+//* set cors
 
+app.use(cors({
+    origin: "http://localhost:8080",
+    credentials: true
+}))
+
+//* set Redis and session
 const redisClient = redis.createClient()
 
 app.use(
@@ -46,6 +55,7 @@ app.use(
 )
 
 //* setup apollo server
+
 const apolloServer = new ApolloServer({
     introspection: true,
     typeDefs,
@@ -54,17 +64,17 @@ const apolloServer = new ApolloServer({
         req
     }) => {
         return {
-            req
+            req,
+            User
         }
     }
 })
 
 apolloServer.applyMiddleware({
     app,
-    path: "/graphql"
-});
+    path: "/graphql",
+    cors: false
 
-// const httpServer = http.createServer(app);
-// apolloServer.installSubscriptionHandlers(httpServer);
+});
 
 module.exports = app
