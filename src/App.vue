@@ -8,8 +8,7 @@
               <md-icon>menu</md-icon>
             </md-button>
 
-            <span v-if="this.me" class="md-title">{{me.username}}</span>
-            <span v-else class="md-title">My title</span>
+            <span class="md-title">Portua</span>
           </div>
 
           <div class="md-toolbar-section-end">
@@ -19,40 +18,47 @@
           </div>
         </div>
 
-        <div class="md-toolbar-row">
+        <div id="nav" class="md-toolbar-row">
           <md-tabs class="md-primary">
             <md-tab id="tab-home" md-label="Home" to="/"></md-tab>
             <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
-            <md-tab id="tab-posts" md-label="Posts" to="/signUp"></md-tab>
-            <md-tab id="tab-favorites" md-label="Favorites" to="/signIn"></md-tab>
+            <md-tab id="tab-posts" md-label="SignUp" to="/signUp"></md-tab>
+            <md-tab id="tab-favorites" md-label="SignIn" to="/signIn"></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible">
-        <md-toolbar class="md-transparent" md-elevation="0">Navigation</md-toolbar>
+        <md-toolbar class="md-transparent" md-elevation="6">Menu</md-toolbar>
+        <div v-if="me">
+          <md-list>
+            <md-list-item @click="setMenuVisible">
+              <md-icon id="icon-signUp" to="/signUp">person</md-icon>
+              <span class="md-list-item-text">{{me.username}}</span>
+            </md-list-item>
 
-        <md-list>
-          <md-list-item>
-            <md-icon id="icon-signUp" to="/signUp">move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
-          </md-list-item>
+            <md-list-item @click="setMenuVisible">
+              <md-icon>shopping_bag</md-icon>
+              <span class="md-list-item-text">Shopping Bag</span>
+            </md-list-item>
 
-          <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
-          </md-list-item>
+            <md-list-item @click="setMenuVisible">
+              <md-icon>favorite</md-icon>
+              <span class="md-list-item-text">Favorites</span>
+            </md-list-item>
 
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
+            <md-list-item @click="setMenuVisible">
+              <md-icon>error</md-icon>
+              <span class="md-list-item-text" @click="logout">logout</span>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div v-else>
+          <md-list-item to="/signIn" @click="setMenuVisible">
+            <md-icon id="icon-signUp">move_to_inbox</md-icon>
+            <span class="md-list-item-text">Login</span>
           </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">logout</span>
-          </md-list-item>
-        </md-list>
+        </div>
       </md-app-drawer>
 
       <md-app-content class="contents">
@@ -71,6 +77,21 @@ export default {
   data: () => ({
     menuVisible: false
   }),
+  methods: {
+    logout() {
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation {
+            logout
+          }
+        `
+      });
+      location.reload();
+    },
+    setMenuVisible() {
+      this.menuVisible = false;
+    }
+  },
   apollo: {
     me: {
       query: gql`
@@ -104,10 +125,6 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -120,8 +137,8 @@ export default {
   height: 400px;
   border: 1px solid rgba(#000, 0.12);
 }
+.md-list-item-text {
+  color: #2c3e50;
+}
 </style>
-<!-- .md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-} -->
+

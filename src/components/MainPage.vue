@@ -41,9 +41,11 @@
 <script>
 import gql from "graphql-tag";
 export default {
-  name: "HelloWorld",
+  name: "MainPage",
   data: () => {
-    return {};
+    return {
+      items: []
+    };
   },
   apollo: {
     items: gql`

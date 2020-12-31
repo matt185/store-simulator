@@ -11,6 +11,22 @@ module.exports = async (_, {
 }, {
     req
 }) => {
+    if (username.length === 0) {
+        return {
+            error: {
+                field: "username",
+                message: "Insert a username"
+            }
+        }
+    }
+    if (password.length === 0) {
+        return {
+            error: {
+                field: "password",
+                message: "Insert a password"
+            }
+        }
+    }
     const user = await User.findOne({
         where: {
             username
@@ -37,7 +53,6 @@ module.exports = async (_, {
     }
 
     req.session.userId = user.userId
-    console.log(req.session.userId)
     return {
         user: user
     }
