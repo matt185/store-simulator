@@ -27,12 +27,28 @@ const routes = [{
     name: 'SignUp',
     component: () => import('../views/SignUp.vue')
   },
+  {
+    path: '/user',
+    name: 'User',
+    component: () => import('../views/User.vue')
+  },
+  {
+    path: '/shopping_bag',
+    name: 'ShoppingBag',
+    component: () => import('../views/ShoppingBag.vue')
+  },
+  {
+    path: '/favorite',
+    name: 'Favorite',
+    component: () => import('../views/Favorite.vue')
+  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+
 })
 
 export default router

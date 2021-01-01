@@ -1,6 +1,6 @@
 <template>
   <div id="itemTable">
-    <md-card v-for="(item,i) in items" :key="i">
+    <md-card v-for="(item,i) in items" :key="i" md-with-hover>
       <md-card-header>
         <md-card-media md-big>
           <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
@@ -14,7 +14,7 @@
 
       <md-card-actions>
         <md-button></md-button>
-        <md-button>Action</md-button>
+        <md-button>Add</md-button>
       </md-card-actions>
     </md-card>
     <!-- <table border="1px" id="table">

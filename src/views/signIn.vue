@@ -23,7 +23,13 @@
               </md-field>-->
               <md-field :class="passwordClass">
                 <label>Password</label>
-                <md-input v-model="password" type="password" id="password" required></md-input>
+                <md-input
+                  v-model="password"
+                  type="password"
+                  id="password"
+                  required
+                  @keyup.enter="mutate()"
+                ></md-input>
                 <span class="md-error">Wrong password</span>
               </md-field>
               <md-button class="md-dense md-raised md-primary" @click="mutate()">Submit</md-button>
