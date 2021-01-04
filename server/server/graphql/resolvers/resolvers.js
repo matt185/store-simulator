@@ -15,6 +15,12 @@ const updateItem = require('./itemResolver/updateItem')
 const deleteItem = require('./itemResolver/deleteItem')
 const updateFavorite = require('./itemResolver/updateFavorite')
 const favorites = require('./userResolver/favorites')
+//* message
+const messages = require('./messageResolver/messages')
+const newMessage = require('./messageResolver/newMessage')
+const deleteMessage = require('./messageResolver/deleteMessage')
+const updateStatus = require('./messageResolver/updateStatus')
+
 module.exports = {
     Query: {
         hello: hello,
@@ -25,6 +31,8 @@ module.exports = {
         me: me,
         //* item Query
         items: items,
+        //* message Query
+        messages
 
     },
     Mutation: {
@@ -38,6 +46,10 @@ module.exports = {
         addItem,
         updateItem,
         deleteItem,
-        updateFavorite
+        updateFavorite,
+        //*message Mutation
+        newMessage,
+        deleteMessage,
+        updateStatus
     }
 }

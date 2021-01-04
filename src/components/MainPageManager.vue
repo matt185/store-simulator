@@ -83,7 +83,7 @@
 
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="itemId" md-sort-by="itemId">{{ item.itemId }}</md-table-cell>
-        <md-table-cell md-label="mage">
+        <md-table-cell md-label="Image">
           <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
         </md-table-cell>
         <md-table-cell md-label="itemClass" md-sort-by="itemClass">{{ item. itemClass }}</md-table-cell>

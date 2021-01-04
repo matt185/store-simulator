@@ -11,7 +11,7 @@
           <md-tabs class="md-primary" md-sync-route>
             <md-tab id="tab-home" md-label="Home" to="/" exact></md-tab>
             <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
-            <md-tab v-if="auth" id="tab-signUp" md-label="SignUp" to="/signUp"></md-tab>
+            <md-tab v-if="auth" id="tab-signUp" md-label="Agenda" to="/messages"></md-tab>
             <md-tab v-if="!me" id="tab-signIn" md-label="SignIn" to="/signIn"></md-tab>
           </md-tabs>
         </div>
@@ -63,6 +63,7 @@
                   <md-icon class="md-primary">clear</md-icon>
                 </md-button>
               </md-list-item>
+              <md-divider></md-divider>
             </md-menu-content>
           </md-menu>
           <md-button class="md-icon-button">

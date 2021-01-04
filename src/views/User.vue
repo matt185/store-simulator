@@ -209,9 +209,7 @@ export default {
       this.addUserDialog = false;
     },
     searchOnTable() {
-      console.log("users", this.users, "search", this.search);
       this.searched = searchByName(this.users, this.search);
-      console.log(this.searched);
     },
     deleteUser(name) {
       this.$apollo.mutate({

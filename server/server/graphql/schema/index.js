@@ -12,6 +12,7 @@ const {
 } = require('apollo-server-express')
 const User = require('./userSchema')
 const Item = require('./itemSchema')
+const Message = require('./messageSchema')
 const baseSchema = gql `
 scalar Date
 
@@ -23,4 +24,4 @@ type Mutation{
     _:Boolean
 }
 `
-module.exports = [baseSchema, User, Item]
+module.exports = [baseSchema, User, Item, Message]
