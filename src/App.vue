@@ -11,7 +11,7 @@
           <md-tabs class="md-primary" md-sync-route>
             <md-tab id="tab-home" md-label="Home" to="/" exact></md-tab>
             <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
-            <md-tab v-if="!me" id="tab-signUp" md-label="SignUp" to="/signUp"></md-tab>
+            <md-tab v-if="auth" id="tab-signUp" md-label="SignUp" to="/signUp"></md-tab>
             <md-tab v-if="!me" id="tab-signIn" md-label="SignIn" to="/signIn"></md-tab>
           </md-tabs>
         </div>
@@ -25,21 +25,46 @@
         </md-autocomplete>
         <md-menu md-size="medium" md-align-trigger>
           <md-button class="md-icon-button" md-menu-trigger>
-            <md-icon>filter_list</md-icon>
+            <md-icon>sort</md-icon>
             <md-tooltip md-direction="bottom">Filter Options</md-tooltip>
           </md-button>
           <md-menu-content>
-            <md-menu-item>My Item 1</md-menu-item>
-            <md-menu-item>My Item 2</md-menu-item>
-            <md-menu-item>My Item 3</md-menu-item>
+            <md-menu-item @click="searchField='itemId'">Item Id</md-menu-item>
+            <md-menu-item @click="searchField='itemClass'">Item Class</md-menu-item>
+            <md-menu-item @click="searchField='itemName'">Item Name</md-menu-item>
           </md-menu-content>
         </md-menu>
 
         <div class="md-toolbar-section-end">
-          <md-button class="md-icon-button">
-            <md-icon>favorite</md-icon>
-            <md-tooltip md-direction="bottom">Favorite</md-tooltip>
-          </md-button>
+          <md-menu md-align-trigger md-size="big">
+            <md-button class="md-icon-button" md-menu-trigger>
+              <md-icon>favorite</md-icon>
+              <md-tooltip md-direction="bottom">Favorite</md-tooltip>
+            </md-button>
+            <md-menu-content>
+              <md-list-item
+                class="md-elevation-1"
+                v-for="item in this.favoriteList"
+                :key="item.itemId"
+              >
+                <md-avatar>
+                  <img src="https://placeimg.com/40/40/people/1" alt="People" />
+                </md-avatar>
+
+                <div class="md-list-item-text">
+                  <span>{{item.itemId}}</span>
+                  <span>{{item.itemName}}</span>
+                  <p>{{item.amount}}</p>
+                </div>
+                <md-button
+                  class="md-icon-button md-list-action"
+                  @click="updateFavorite(item.itemId)"
+                >
+                  <md-icon class="md-primary">clear</md-icon>
+                </md-button>
+              </md-list-item>
+            </md-menu-content>
+          </md-menu>
           <md-button class="md-icon-button">
             <md-icon>shopping_bag</md-icon>
             <md-tooltip md-direction="bottom">Shopping Bag</md-tooltip>
@@ -91,11 +116,16 @@
 <script>
 // import Navbar from "./components/Navbar.vue";
 import gql from "graphql-tag";
+import { partialAuth } from "./../server/server/constant";
 export default {
   name: "LastRowFixed",
   data: () => ({
+    me: {},
     menuVisible: false,
     selected: "",
+    searchField: "itemName",
+    favorite: [],
+    favoriteList: [],
     selectionList: [
       "Jim Halpert",
       "Dwight Schrute",
@@ -113,6 +143,32 @@ export default {
       "Phyllis Lapin-Vance"
     ]
   }),
+  async created() {
+    const response = await this.$apollo.query({
+      query: gql`
+        query favorites {
+          favorites {
+            itemId
+            amount
+            itemName
+          }
+        }
+      `
+    });
+    this.favorite = response.data.favorites;
+    this.favoriteList = this.favorite;
+  },
+  computed: {
+    auth() {
+      if (this.me) {
+        if (partialAuth.includes(this.me.role)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  },
+
   methods: {
     logout() {
       this.$apollo.mutate({
@@ -122,10 +178,28 @@ export default {
           }
         `
       });
-      location.reload();
+      this.$router.push({ name: "Home", query: { redirect: "/" } });
     },
     setMenuVisible() {
       this.menuVisible = false;
+    },
+    updateFavorite(id) {
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation updateFavorite($itemId: String!) {
+            updateFavorite(itemId: $itemId)
+          }
+        `,
+        variables: {
+          itemId: id
+        }
+      });
+      for (let i = 0; i < this.favoriteList.length; i++) {
+        if (this.favoriteList[i].itemId === id) {
+          this.favoriteList.splice(i, 1);
+        }
+      }
+      location.reload();
     }
   },
   apollo: {
@@ -182,13 +256,16 @@ export default {
 .search {
   max-width: 300px;
 }
+.favorite {
+  background-color: rgb(127, 127, 131);
+}
 </style>
 
   // <md-app class="appBody" md-waterfall md-mode="fixed-last">
   //     <md-app-toolbar class="md-large md-dense md-primary">
   //       <div class="md-toolbar-row">
   //         <div class="md-toolbar-section-start">
-  //           <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
+  //        b   <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
   //             <md-icon>menu</md-icon>
   //           </md-button>
 

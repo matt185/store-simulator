@@ -1,5 +1,9 @@
 <template>
   <div>
+    <p style="color: orange">TODO</p>
+    <li style="color: red">think if keep that view</li>
+    <li>split in more component the file</li>
+    <li>set better error message with data fom server</li>
     <div v-if="!me">
       <ApolloMutation
         :mutation="require('../graphql/signUp.graphql')"

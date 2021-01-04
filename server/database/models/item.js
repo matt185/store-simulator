@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.FLOAT,
       allowNull: false
+    },
+    favorite: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
     }
   }, {
     sequelize,

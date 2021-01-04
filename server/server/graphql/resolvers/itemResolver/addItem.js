@@ -43,7 +43,8 @@ module.exports = async (_, {
         itemName,
         amount,
         minAmount,
-        price
+        price,
+        favorite: false
     })
     return item
 }

@@ -12,6 +12,7 @@ type User{
     created_at:Date!
     updated_at:Date!
     itemList:[Item]
+    favoriteList:[Item]
 }
 
 type ErrorField{

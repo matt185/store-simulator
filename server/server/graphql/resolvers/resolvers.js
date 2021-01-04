@@ -13,15 +13,18 @@ const addItem = require('./itemResolver/addItem')
 const items = require('./itemResolver/items')
 const updateItem = require('./itemResolver/updateItem')
 const deleteItem = require('./itemResolver/deleteItem')
+const updateFavorite = require('./itemResolver/updateFavorite')
+const favorites = require('./userResolver/favorites')
 module.exports = {
     Query: {
         hello: hello,
         //* user Query
         users: users,
         userByUsername: userByUsername,
+        favorites,
         me: me,
         //* item Query
-        items: items
+        items: items,
 
     },
     Mutation: {
@@ -34,6 +37,7 @@ module.exports = {
         //* item Mutation
         addItem,
         updateItem,
-        deleteItem
+        deleteItem,
+        updateFavorite
     }
 }

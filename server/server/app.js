@@ -12,7 +12,8 @@ const {
 const typeDefs = require('./graphql/schema')
 const resolvers = require('./graphql/resolvers/resolvers')
 const {
-    User
+    User,
+    Item
 } = require('./../database/models')
 const {
     __prod__
@@ -65,7 +66,8 @@ const apolloServer = new ApolloServer({
     }) => {
         return {
             req,
-            User
+            User,
+            Item
         }
     }
 })

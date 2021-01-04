@@ -1,6 +1,6 @@
 <template>
   <div id="itemTable">
-    <md-card v-for="(item,i) in items" :key="i" md-with-hover>
+    <md-card v-for="(item,i) in this.itemsList" :key="i" md-with-hover>
       <md-card-header>
         <md-card-media md-big>
           <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
@@ -13,7 +13,10 @@
       </md-card-header>
 
       <md-card-actions>
-        <md-button></md-button>
+        <md-button @click="updateFavorite(item.itemId)">
+          <md-icon v-if="item.favorite">favorite</md-icon>
+          <md-icon v-else>favorite_border</md-icon>
+        </md-button>
         <md-button>Add</md-button>
       </md-card-actions>
     </md-card>
@@ -41,11 +44,51 @@
 <script>
 import gql from "graphql-tag";
 export default {
-  name: "MainPage",
+  name: "MainPageUser",
   data: () => {
     return {
-      items: []
+      items: [],
+      itemsList: []
     };
+  },
+  async created() {
+    const response = await this.$apollo.query({
+      query: gql`
+        query items {
+          items {
+            itemId
+            itemClass
+            itemName
+            amount
+            minAmount
+            price
+            favorite
+          }
+        }
+      `
+    });
+
+    this.items = response.data.items;
+    this.itemsList = this.items;
+  },
+  methods: {
+    updateFavorite(id) {
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation updateFavorite($itemId: String!) {
+            updateFavorite(itemId: $itemId)
+          }
+        `,
+        variables: {
+          itemId: id
+        }
+      });
+      for (let i = 0; i < this.itemsList.length; i++) {
+        if (this.itemsList[i].itemId === id) {
+          this.itemsList[i].favorite = !this.itemsList[i].favorite;
+        }
+      }
+    }
   },
   apollo: {
     items: gql`
@@ -57,6 +100,7 @@ export default {
           amount
           minAmount
           price
+          favorite
         }
       }
     `,
