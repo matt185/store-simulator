@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import MainPageUser from "@/components/MainPageUser.vue";
 import MainPageManager from "@/components/MainPageManager.vue";
 import gql from "graphql-tag";
@@ -40,7 +39,6 @@ export default {
           }
         }
       `
-      // fetchPolicy: "cache-and-network"
     }
   }
 };

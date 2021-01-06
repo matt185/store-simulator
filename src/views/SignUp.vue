@@ -109,7 +109,6 @@ export default {
           }
         }
       `
-      // fetchPolicy: "cache-and-network"
     }
   }
 };

@@ -21,10 +21,6 @@
                 <md-input v-model="username" type="textarea" id="username" required></md-input>
                 <span class="md-error">Username not inserted or wrong</span>
               </md-field>
-              <!-- <md-field>
-              <label>Email</label>
-              <md-input v-model="email" placeholder="Email" type="email" id="email"></md-input>
-              </md-field>-->
               <md-field :class="passwordClass">
                 <label>Password</label>
                 <md-input
@@ -98,7 +94,6 @@ export default {
           }
         }
       `
-      // fetchPolicy: "cache-and-network"
     }
   }
 };

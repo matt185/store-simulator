@@ -1,10 +1,5 @@
 <template>
   <div>
-    <p style="color: orange">TODO</p>
-    <li>set role</li>
-    <li>set update</li>
-    <li>set more option for normal user</li>
-    <li>split in more component the file</li>
     <div v-if="auth">
       <md-table v-model="searched" md-sort="username" md-sort-order="asc" md-card>
         <md-table-toolbar>
@@ -245,19 +240,7 @@ export default {
           }
         }
       `
-      // fetchPolicy: "cache-and-network"
     }
-    // users: {
-    //   query: gql`
-    //     query users {
-    //       users {
-    //         username
-    //         email
-    //         role
-    //       }
-    //     }
-    //   `
-    // }
   }
 };
 </script>

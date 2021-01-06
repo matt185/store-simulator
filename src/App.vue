@@ -213,7 +213,6 @@ export default {
           }
         }
       `
-      // fetchPolicy: "cache-and-network"
     }
   }
 };
@@ -262,68 +261,4 @@ export default {
 }
 </style>
 
-  // <md-app class="appBody" md-waterfall md-mode="fixed-last">
-  //     <md-app-toolbar class="md-large md-dense md-primary">
-  //       <div class="md-toolbar-row">
-  //         <div class="md-toolbar-section-start">
-  //        b   <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-  //             <md-icon>menu</md-icon>
-  //           </md-button>
-
-  //           <span class="md-title">Portua</span>
-  //         </div>
-
-  //         <div class="md-toolbar-section-end">
-  //           <md-button class="md-icon-button">
-  //             <md-icon>more_vert</md-icon>
-  //           </md-button>
-  //         </div>
-  //       </div>
-
-  //       <div id="nav" class="md-toolbar-row">
-  //         <md-tabs class="md-primary">
-  //           <md-tab id="tab-home" md-label="Home" to="/"></md-tab>
-  //           <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
-  //           <md-tab id="tab-posts" md-label="SignUp" to="/signUp"></md-tab>
-  //           <md-tab id="tab-favorites" md-label="SignIn" to="/signIn"></md-tab>
-  //         </md-tabs>
-  //       </div>
-  //     </md-app-toolbar>
-
-  //     <md-app-drawer :md-active.sync="menuVisible">
-  //       <md-toolbar class="md-transparent" md-elevation="6">Menu</md-toolbar>
-  //       <div v-if="me">
-  //         <md-list>
-  //           <md-list-item @click="setMenuVisible">
-  //             <md-icon id="icon-signUp" to="/signUp">person</md-icon>
-  //             <span class="md-list-item-text">{{me.username}}</span>
-  //           </md-list-item>
-
-  //           <md-list-item @click="setMenuVisible">
-  //             <md-icon>shopping_bag</md-icon>
-  //             <span class="md-list-item-text">Shopping Bag</span>
-  //           </md-list-item>
-
-  //           <md-list-item @click="setMenuVisible">
-  //             <md-icon>favorite</md-icon>
-  //             <span class="md-list-item-text">Favorites</span>
-  //           </md-list-item>
-
-  //           <md-list-item @click="setMenuVisible">
-  //             <md-icon>error</md-icon>
-  //             <span class="md-list-item-text" @click="logout">logout</span>
-  //           </md-list-item>
-  //         </md-list>
-  //       </div>
-  //       <div v-else>
-  //         <md-list-item to="/signIn" @click="setMenuVisible">
-  //           <md-icon id="icon-signUp">move_to_inbox</md-icon>
-  //           <span class="md-list-item-text">Login</span>
-  //         </md-list-item>
-  //       </div>
-  //     </md-app-drawer>
-
-  //     <md-app-content class="contents">
-  //       <router-view />
-  //     </md-app-content>
-  //   </md-app>
+  
