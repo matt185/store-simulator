@@ -1,7 +1,7 @@
 const {
-    Message
-} = require('./../../../../database/models')
-const isAuthorized = require('./../../../helper/isAuthorized')
+    Todos
+} = require('../../../../database/models')
+const isAuthorized = require('../../../helper/isAuthorized')
 module.exports = async (_, {
     title,
     text,
@@ -16,13 +16,13 @@ module.exports = async (_, {
         return permission
     }
 
-    const message = await Message.create({
+    return await Todos.create({
         userId: req.session.userId,
         title,
         text,
         type,
         status: false
     })
-    return message
+
 
 }

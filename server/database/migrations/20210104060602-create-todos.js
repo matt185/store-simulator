@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Messages', {
+    await queryInterface.createTable('Todos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,6 +11,11 @@ module.exports = {
       userId: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      todoId: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       title: {
         type: Sequelize.STRING
@@ -37,6 +42,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Messages');
+    await queryInterface.dropTable('Todos');
   }
 };

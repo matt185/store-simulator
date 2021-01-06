@@ -7,6 +7,7 @@ module.exports = gql `
 type Message {
     id:Int!
     userId: String!
+    todosId:String!
     title: String!
     text: String!
     type: String!

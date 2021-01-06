@@ -1,7 +1,7 @@
 const {
-    Message
-} = require('./../../../../database/models')
-const isAuthorized = require('./../../../helper/isAuthorized')
+    Todos
+} = require('../../../../database/models')
+const isAuthorized = require('../../../helper/isAuthorized')
 module.exports = async (_, __, {
     req
 }) => {
@@ -12,10 +12,14 @@ module.exports = async (_, __, {
         return permission
     }
     console.log(permission)
-    let messages = await Message.findAll({
+    let messages = await Todos.findAll({
         where: {
             userId: req.session.userId
-        }
+        },
+        order: [
+            ['id', 'ASC'],
+
+        ]
     })
     return messages
 }

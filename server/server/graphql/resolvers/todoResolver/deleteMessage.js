@@ -1,5 +1,5 @@
 const {
-    Message
+    Todos
 } = require('./../../../../database/models')
 const isAuthorized = require('./../../../helper/isAuthorized')
 module.exports = async (_, {
@@ -13,20 +13,12 @@ module.exports = async (_, {
     if (permission) {
         return permission
     }
-    let message = await Message.findOne({
+
+    const message = await Todos.destroy({
         where: {
             id
         }
     })
-    if (!message) {
-        return false
-    }
-    await Message.update({
-        status: !message.status
-    }, {
-        where: {
-            id
-        }
-    })
-    return true
+    return message
+
 }

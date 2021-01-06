@@ -16,10 +16,10 @@ const deleteItem = require('./itemResolver/deleteItem')
 const updateFavorite = require('./itemResolver/updateFavorite')
 const favorites = require('./userResolver/favorites')
 //* message
-const messages = require('./messageResolver/messages')
-const newMessage = require('./messageResolver/newMessage')
-const deleteMessage = require('./messageResolver/deleteMessage')
-const updateStatus = require('./messageResolver/updateStatus')
+const messages = require('./todoResolver/messages')
+const newMessage = require('./todoResolver/newMessage')
+const deleteMessage = require('./todoResolver/deleteMessage')
+const updateStatus = require('./todoResolver/updateStatus')
 
 module.exports = {
     Query: {
