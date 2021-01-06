@@ -1,9 +1,9 @@
 const {
     Todos
-} = require('./../../../../database/models')
-const isAuthorized = require('./../../../helper/isAuthorized')
+} = require('../../../../database/models')
+const isAuthorized = require('../../../helper/isAuthorized')
 module.exports = async (_, {
-    id
+    todoId
 }, {
     req
 }) => {
@@ -16,7 +16,7 @@ module.exports = async (_, {
 
     const message = await Todos.destroy({
         where: {
-            id
+            todoId
         }
     })
     return message

@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    todoId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
     title: {
       type: DataTypes.STRING
     },

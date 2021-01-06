@@ -3,6 +3,7 @@ const {
 } = require('../../../../database/models')
 const isAuthorized = require('../../../helper/isAuthorized')
 module.exports = async (_, {
+    todoId,
     title,
     text,
     type
@@ -18,6 +19,7 @@ module.exports = async (_, {
 
     return await Todos.create({
         userId: req.session.userId,
+        todoId,
         title,
         text,
         type,

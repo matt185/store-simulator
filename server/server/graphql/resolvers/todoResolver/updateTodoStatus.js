@@ -3,7 +3,7 @@ const {
 } = require('../../../../database/models')
 const isAuthorized = require('../../../helper/isAuthorized')
 module.exports = async (_, {
-    id
+    todoId
 }, {
     req
 }) => {
@@ -13,19 +13,19 @@ module.exports = async (_, {
     if (permission) {
         return permission
     }
-    let message = await Todos.findOne({
+    let todo = await Todos.findOne({
         where: {
-            id
+            todoId
         }
     })
-    if (!message) {
+    if (!todo) {
         return false
     }
     await Todos.update({
-        status: !message.status
+        status: !todo.status
     }, {
         where: {
-            id
+            todoId
         }
     })
     return true

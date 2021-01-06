@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div>
-      <p style="color: orange">TODO</p>
-      <li>set different image</li>
-      <li>set update</li>
-      <li>set filter options</li>
-    </div>
-
     <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card class="itemTable">
       <md-table-toolbar>
         <div class="md-toolbar-section-start">

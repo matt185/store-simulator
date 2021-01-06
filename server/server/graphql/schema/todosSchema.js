@@ -7,7 +7,7 @@ module.exports = gql `
 type Message {
     id:Int!
     userId: String!
-    todosId:String!
+    todoId:String!
     title: String!
     text: String!
     type: String!
@@ -18,12 +18,13 @@ type Message {
 
 #* Query definitions
 extend type Query{
-    messages:[Message]
+    todos:[Message]
 }
 #* mutation definitions
 extend type Mutation{
-    newMessage(title:String!, text:String!, type:String!):Message
-    updateStatus(id:Int!):Boolean
-    deleteMessage(id:Int):Boolean
+    newTodo(todoId:String!,title:String!, text:String!, type:String!):Message
+    updateTodoStatus(todoId:String!):Boolean
+    deleteTodo(todoId:String!):Boolean
+    deleteCompleteTodos:Boolean
 }
 `

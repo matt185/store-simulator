@@ -16,11 +16,11 @@ const deleteItem = require('./itemResolver/deleteItem')
 const updateFavorite = require('./itemResolver/updateFavorite')
 const favorites = require('./userResolver/favorites')
 //* message
-const messages = require('./todoResolver/messages')
-const newMessage = require('./todoResolver/newMessage')
-const deleteMessage = require('./todoResolver/deleteMessage')
-const updateStatus = require('./todoResolver/updateStatus')
-
+const todos = require('./todoResolver/todos')
+const newTodo = require('./todoResolver/newTodo')
+const deleteTodo = require('./todoResolver/deleteTodo')
+const updateTodoStatus = require('./todoResolver/updateTodoStatus')
+const deleteCompleteTodos = require('./todoResolver/deleteCompleteTodos')
 module.exports = {
     Query: {
         hello: hello,
@@ -32,7 +32,7 @@ module.exports = {
         //* item Query
         items: items,
         //* message Query
-        messages
+        todos
 
     },
     Mutation: {
@@ -48,8 +48,9 @@ module.exports = {
         deleteItem,
         updateFavorite,
         //*message Mutation
-        newMessage,
-        deleteMessage,
-        updateStatus
+        newTodo,
+        deleteTodo,
+        updateTodoStatus,
+        deleteCompleteTodos
     }
 }
