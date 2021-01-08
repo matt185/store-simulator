@@ -1,7 +1,15 @@
 <template>
   <div class="home">
-    <MainPageManager v-if="auth" />
-    <MainPageUser v-else />
+    <div v-if="auth" class="switch-View">
+      <md-switch v-model="changeView"></md-switch>
+    </div>
+    <div v-if="auth">
+      <MainPageManager v-if="!changeView" />
+      <MainPageUser v-else />
+    </div>
+    <div v-else>
+      <MainPageUser />
+    </div>
   </div>
 </template>
 
@@ -9,6 +17,7 @@
 import MainPageUser from "@/components/MainPageUser.vue";
 import MainPageManager from "@/components/MainPageManager.vue";
 import gql from "graphql-tag";
+
 import { partialAuth } from "./../../server/server/constant";
 export default {
   name: "Home",
@@ -17,8 +26,12 @@ export default {
     MainPageUser
   },
   data: () => {
-    return {};
+    return {
+      me: {},
+      changeView: false
+    };
   },
+
   computed: {
     auth() {
       if (this.me) {
@@ -29,6 +42,7 @@ export default {
       return false;
     }
   },
+
   apollo: {
     me: {
       query: gql`
@@ -46,7 +60,14 @@ export default {
 
 <style scoped>
 .home {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+.switch-View {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>>
 

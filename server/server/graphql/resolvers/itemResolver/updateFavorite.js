@@ -20,7 +20,6 @@ module.exports =
                 userId: req.session.userId
             }
         })
-        console.log(item)
         if (!item) {
             let item = await Item.findOne({
                 where: {
@@ -35,7 +34,11 @@ module.exports =
                 amount: item.amount,
                 price: item.price,
                 favorite: true
-
+            })
+            return await Item.findOne({
+                where: {
+                    itemId,
+                }
             })
         } else {
             await UsersItemStore.destroy({
@@ -44,8 +47,8 @@ module.exports =
                     userId: req.session.userId
                 }
             })
+            return item
         }
-        return true
 
 
 

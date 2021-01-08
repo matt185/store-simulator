@@ -54,7 +54,6 @@ app.use(
         resave: false,
     })
 )
-
 //* setup apollo server
 
 const apolloServer = new ApolloServer({

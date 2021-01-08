@@ -29,7 +29,7 @@
             <md-tooltip md-direction="bottom">Filter Options</md-tooltip>
           </md-button>
           <md-menu-content>
-            <md-menu-item @click="searchField='itemId'">Item Id</md-menu-item>
+            <md-menu-item @click="searchField='all'">All</md-menu-item>
             <md-menu-item @click="searchField='itemClass'">Item Class</md-menu-item>
             <md-menu-item @click="searchField='itemName'">Item Name</md-menu-item>
           </md-menu-content>
@@ -42,11 +42,7 @@
               <md-tooltip md-direction="bottom">Favorite</md-tooltip>
             </md-button>
             <md-menu-content>
-              <md-list-item
-                class="md-elevation-1"
-                v-for="item in this.favoriteList"
-                :key="item.itemId"
-              >
+              <md-list-item class="md-elevation-1" v-for="item in favorite" :key="item.itemId">
                 <md-avatar>
                   <img src="https://placeimg.com/40/40/people/1" alt="People" />
                 </md-avatar>
@@ -118,48 +114,58 @@
 // import Navbar from "./components/Navbar.vue";
 import gql from "graphql-tag";
 import { partialAuth } from "./../server/server/constant";
+import { mapGetters } from "vuex";
 export default {
   name: "LastRowFixed",
   data: () => ({
     me: {},
     menuVisible: false,
     selected: "",
-    searchField: "itemName",
-    favorite: [],
-    favoriteList: [],
-    selectionList: [
-      "Jim Halpert",
-      "Dwight Schrute",
-      "Michael Scott",
-      "Pam Beesly",
-      "Angela Martin",
-      "Kelly Kapoor",
-      "Ryan Howard",
-      "Kevin Malone",
-      "Creed Bratton",
-      "Oscar Nunez",
-      "Toby Flenderson",
-      "Stanley Hudson",
-      "Meredith Palmer",
-      "Phyllis Lapin-Vance"
-    ]
+    searchField: "all",
+    favoriteList: []
   }),
+
+  beforeCreate() {
+    this.$store.dispatch("fetchItemsList");
+    this.$store.dispatch("fetchFavoriteList");
+  },
   async created() {
-    const response = await this.$apollo.query({
-      query: gql`
-        query favorites {
-          favorites {
-            itemId
-            amount
-            itemName
-          }
-        }
-      `
-    });
-    this.favorite = response.data.favorites;
-    this.favoriteList = this.favorite;
+    // const response = await this.$apollo.query({
+    //   query: gql`
+    //     query favorites {
+    //       favorites {
+    //         itemId
+    //         amount
+    //         itemName
+    //       }
+    //     }
+    //   `
+    // });
+    // this.favoriteList = this.$store.state.favorite;
+    // console.log(this.$store.state.favorite);
   },
   computed: {
+    ...mapGetters(["favorite"]),
+    items() {
+      return this.$store.getters.items;
+    },
+    selectionList() {
+      let filter = this.searchField;
+      let items = this.$store.state.items;
+      let result = [];
+      if (filter === "itemName") {
+        result = items.map(item => item.itemName);
+      } else if (filter === "itemClass") {
+        result = items.map(item => item.itemClass);
+      }
+      if (filter === "all") {
+        let a = items.map(item => item.itemName);
+        let b = items.map(item => item.itemClass);
+        result = [...a, ...b];
+        console.log(result);
+      }
+      return result;
+    },
     auth() {
       if (this.me) {
         if (partialAuth.includes(this.me.role)) {
@@ -172,6 +178,7 @@ export default {
 
   methods: {
     logout() {
+      this.$router.push({ name: "Home", query: { redirect: "/" } });
       this.$apollo.mutate({
         mutation: gql`
           mutation {
@@ -179,28 +186,14 @@ export default {
           }
         `
       });
-      this.$router.push({ name: "Home", query: { redirect: "/" } });
+      location.reload();
     },
     setMenuVisible() {
       this.menuVisible = false;
     },
+    setFavoriteMenuVisible() {},
     updateFavorite(id) {
-      this.$apollo.mutate({
-        mutation: gql`
-          mutation updateFavorite($itemId: String!) {
-            updateFavorite(itemId: $itemId)
-          }
-        `,
-        variables: {
-          itemId: id
-        }
-      });
-      for (let i = 0; i < this.favoriteList.length; i++) {
-        if (this.favoriteList[i].itemId === id) {
-          this.favoriteList.splice(i, 1);
-        }
-      }
-      location.reload();
+      this.$store.dispatch("removeFavorite", id);
     }
   },
   apollo: {

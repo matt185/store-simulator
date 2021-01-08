@@ -1,10 +1,11 @@
-query items{
+  query items{
     items{
         itemId
         itemClass
-        itemName 
+        itemName
         amount
         minAmount
         price
+        favorite
     }
 }

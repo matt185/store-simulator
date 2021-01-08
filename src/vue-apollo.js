@@ -7,8 +7,15 @@ import {
   createApolloClient,
   restartWebsockets
 } from 'vue-cli-plugin-apollo/graphql-client'
+import {
+  setContext
+} from 'apollo-link-context'
+
+
 // Install the vue plugin
 Vue.use(VueApollo)
+
+
 
 // Name of the localStorage item
 const AUTH_TOKEN = 'apollo-token'
@@ -16,6 +23,19 @@ const AUTH_TOKEN = 'apollo-token'
 // Http endpoint
 const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || `http://localhost:${SERVER_PORT}/graphql`
 
+const authLink = setContext(async (_, {
+  headers
+}) => {
+  // get the authentication token from local storage if it exists
+  const token = JSON.parse(localStorage.getItem('apollo-token'))
+  // Return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token || ''
+    }
+  }
+})
 // Config
 const defaultOptions = {
   // You can use `https` for secure connection (recommended in production)
@@ -42,9 +62,8 @@ const defaultOptions = {
     credentials: 'include'
   },
   // link: myLink
-
+  link: authLink
   // Override default cache
-  // cache: myCache
 
   // Override the way the Authorization header is set
   // getAuth: (tokenName) => ...
@@ -57,6 +76,7 @@ const defaultOptions = {
 }
 
 // Call this in the Vue app file
+
 export function createProvider(options = {}) {
   // Create apollo client
   const {

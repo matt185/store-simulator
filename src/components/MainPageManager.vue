@@ -169,6 +169,11 @@ export default {
       price: ""
     }
   }),
+  async created() {
+    this.items = this.$store.state.items;
+    this.searched = this.items;
+    // console.log("searched", this.searched);
+  },
   methods: {
     newItem() {
       this.$apollo.mutate({
@@ -240,25 +245,6 @@ export default {
       this.itemToDelete = name;
       this.deleteDialog = true;
     }
-  },
-  async created() {
-    const response = await this.$apollo.query({
-      query: gql`
-        query items {
-          items {
-            itemId
-            itemClass
-            itemName
-            amount
-            minAmount
-            price
-          }
-        }
-      `
-    });
-    this.items = response.data.items;
-    this.searched = this.items;
-    // console.log("searched", this.searched);
   }
 };
 </script>

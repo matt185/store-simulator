@@ -49,7 +49,7 @@ extend type Mutation{
     addItem(itemId:String!,itemClass: String!, itemName: String!, amount: Int!, minAmount: Int!, price: Float!):Item
     updateItem(itemId: String, itemClass: String, itemName: String, amount: Int, minAmount: Int, price: Float!): Item
     addFavorite(itemId:String!):Boolean!
-    updateFavorite(itemId: String!): Boolean!
+    updateFavorite(itemId: String!): Item
     deleteItem(itemId:String!):Boolean!
 }
 

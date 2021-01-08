@@ -1,0 +1,8 @@
+query favorites {
+            favorites {
+              itemId
+              amount
+              itemName
+              favorite
+            }
+          }
