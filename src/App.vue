@@ -162,7 +162,6 @@ export default {
         let a = items.map(item => item.itemName);
         let b = items.map(item => item.itemClass);
         result = [...a, ...b];
-        console.log(result);
       }
       return result;
     },

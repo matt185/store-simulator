@@ -13,6 +13,7 @@ const {
 const User = require('./userSchema')
 const Item = require('./itemSchema')
 const Todos = require('./todosSchema')
+const ShoppingBag = require('./shoppingBagSchema')
 const baseSchema = gql `
 scalar Date
 
@@ -24,4 +25,4 @@ type Mutation{
     _:Boolean
 }
 `
-module.exports = [baseSchema, User, Item, Todos]
+module.exports = [baseSchema, User, Item, Todos, ShoppingBag]

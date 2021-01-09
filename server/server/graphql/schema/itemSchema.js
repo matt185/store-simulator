@@ -12,6 +12,7 @@ type Item{
     minAmount:Int!
     price:Float
     favorite:Boolean
+    onBag:Boolean
     created_At:Date
     updated_At:Date
 }
@@ -24,6 +25,7 @@ type Favorite {
     amount: Int!
     price: Float
     favorite: Boolean
+    onBag:Boolean
     created_At: Date
     updated_At: Date
 }
