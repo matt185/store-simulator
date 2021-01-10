@@ -8,8 +8,10 @@ type ShoppingBag {
     userId: String!
     itemId: String!
     quantity: Int!
-    totPrice: Float!
+    TotalPrice: Float
     onBag:Boolean!
+     createdAt: Date
+     updatedAt: Date
 }
 
 extend type Query {
@@ -17,10 +19,10 @@ extend type Query {
 }
 
 extend type Mutation{
-    addToBag(itemId:String!,quantity:Int!):ShoppingBag
-    removeFromBag(itemId:String!):ShoppingBag
-    removeAll:Boolean
-    incrementAmount(itemId:String!,quantity:Int!):ShoppingBag
-    decrementAmount(itemId: String!, quantity: Int!):ShoppingBag
+    addToBag(itemId:String!,quantity:Int!):ShoppingBag!
+    removeFromBag(itemId:String!):ShoppingBag!
+    removeAllFromBag:Boolean
+    # incrementAmount(itemId:String!,quantity:Int!):ShoppingBag!
+    # decrementAmount(itemId: String!, quantity: Int!):ShoppingBag!
 }
 `

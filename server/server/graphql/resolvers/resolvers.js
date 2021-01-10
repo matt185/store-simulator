@@ -21,6 +21,11 @@ const newTodo = require('./todoResolver/newTodo')
 const deleteTodo = require('./todoResolver/deleteTodo')
 const updateTodoStatus = require('./todoResolver/updateTodoStatus')
 const deleteCompleteTodos = require('./todoResolver/deleteCompleteTodos')
+//*shopping bag
+const addToBag = require('./shoppingBagResolver/addToBag')
+const bags = require('./shoppingBagResolver/bags')
+const removeFromBag = require('./shoppingBagResolver/removeFromBag')
+const removeAllFromBag = require('./shoppingBagResolver/removeAllFromBag')
 module.exports = {
     Query: {
         hello: hello,
@@ -32,8 +37,9 @@ module.exports = {
         //* item Query
         items: items,
         //* message Query
-        todos
-
+        todos,
+        //* shoppingBag Query
+        bags,
     },
     Mutation: {
         //* user Mutation
@@ -51,6 +57,10 @@ module.exports = {
         newTodo,
         deleteTodo,
         updateTodoStatus,
-        deleteCompleteTodos
+        deleteCompleteTodos,
+        //*shoppingBag Mutation
+        addToBag,
+        removeFromBag,
+        removeAllFromBag
     }
 }

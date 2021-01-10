@@ -13,8 +13,8 @@ type Item{
     price:Float
     favorite:Boolean
     onBag:Boolean
-    created_At:Date
-    updated_At:Date
+    createdAt:Date
+    updatedAt:Date
 }
 
 type Favorite {
@@ -26,8 +26,8 @@ type Favorite {
     price: Float
     favorite: Boolean
     onBag:Boolean
-    created_At: Date
-    updated_At: Date
+    createdAt: Date
+    updatedAt: Date
 }
 
 type ItemTake {

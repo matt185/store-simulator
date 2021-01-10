@@ -1,0 +1,6 @@
+mutation removeFromBag($itemId:String!){
+  removeFromBag(itemId:$itemId){
+    itemId
+  }
+  
+}

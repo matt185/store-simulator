@@ -33,7 +33,8 @@ module.exports =
                 itemClass: item.itemClass,
                 amount: item.amount,
                 price: item.price,
-                favorite: true
+                favorite: true,
+                onBag: item.onBag
             })
             return await Item.findOne({
                 where: {

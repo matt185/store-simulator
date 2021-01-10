@@ -1,0 +1,7 @@
+query bags {
+            bags {
+              itemId
+              quantity
+              TotalPrice
+            }
+          }

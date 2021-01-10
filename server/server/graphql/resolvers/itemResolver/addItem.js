@@ -15,6 +15,7 @@ module.exports = async (_, {
 }, {
     req
 }) => {
+
     if (!req.session.userId) {
         throw new Error('you are not logged in')
     }
@@ -44,7 +45,9 @@ module.exports = async (_, {
         amount,
         minAmount,
         price,
-        favorite: false
+        favorite: false,
+        onBag: false
     })
+
     return item
 }

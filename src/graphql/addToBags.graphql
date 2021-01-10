@@ -1,0 +1,7 @@
+mutation addToBag ($itemId:String!, $quantity:Int!){
+    addToBag(itemId:$itemId,quantity:$quantity){
+        userId
+        quantity
+        TotalPrice
+    }
+}

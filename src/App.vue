@@ -59,13 +59,34 @@
                   <md-icon class="md-primary">clear</md-icon>
                 </md-button>
               </md-list-item>
-              <md-divider></md-divider>
             </md-menu-content>
           </md-menu>
-          <md-button class="md-icon-button">
-            <md-icon>shopping_bag</md-icon>
-            <md-tooltip md-direction="bottom">Shopping Bag</md-tooltip>
-          </md-button>
+
+          <md-menu md-align-trigger md-size="big">
+            <md-button class="md-icon-button" md-menu-trigger>
+              <md-icon>shopping_bag</md-icon>
+              <md-tooltip md-direction="bottom">Shopping Bag</md-tooltip>
+            </md-button>
+            <md-menu-content>
+              <md-list-item class="md-elevation-1" v-for="item in bags" :key="item.itemId">
+                <md-avatar>
+                  <img src="https://placeimg.com/40/40/people/1" alt="People" />
+                </md-avatar>
+
+                <div class="md-list-item-text">
+                  <span>{{item.itemId}}</span>
+                  <!-- <span>{{item.itemName}}</span> -->
+                  <p>{{item.quantity}}</p>
+                </div>
+                <md-button
+                  class="md-icon-button md-list-action"
+                  @click="removeFromBag(item.itemId)"
+                >
+                  <md-icon class="md-primary">clear</md-icon>
+                </md-button>
+              </md-list-item>
+            </md-menu-content>
+          </md-menu>
         </div>
       </md-app-toolbar>
 
@@ -128,6 +149,7 @@ export default {
   beforeCreate() {
     this.$store.dispatch("fetchItemsList");
     this.$store.dispatch("fetchFavoriteList");
+    this.$store.dispatch("fetchBagList");
   },
   async created() {
     // const response = await this.$apollo.query({
@@ -145,7 +167,7 @@ export default {
     // console.log(this.$store.state.favorite);
   },
   computed: {
-    ...mapGetters(["favorite"]),
+    ...mapGetters(["favorite", "bags"]),
     items() {
       return this.$store.getters.items;
     },
@@ -193,6 +215,9 @@ export default {
     setFavoriteMenuVisible() {},
     updateFavorite(id) {
       this.$store.dispatch("removeFavorite", id);
+    },
+    removeFromBag(id) {
+      this.$store.dispatch("removeFromBag", id);
     }
   },
   apollo: {

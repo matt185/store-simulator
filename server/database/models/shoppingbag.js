@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class shoppingBag extends Model {
+  class ShoppingBag extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  shoppingBag.init({
+  ShoppingBag.init({
     userId: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -30,13 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    onBag: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    }
   }, {
     sequelize,
-    modelName: 'shoppingBag',
+    modelName: 'ShoppingBag',
   });
-  return shoppingBag;
+  return ShoppingBag;
 };

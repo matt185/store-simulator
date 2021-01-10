@@ -1,5 +1,6 @@
 const {
-    UsersItemStore
+    UsersItemStore,
+    ShoppingBag
 } = require('./../../../../database/models')
 
 module.exports = async (_, __, {
@@ -22,6 +23,19 @@ module.exports = async (_, __, {
     items.forEach(item => {
         if (userFavoriteId.includes(item.itemId)) {
             item.favorite = true
+        }
+    });
+    const userBag = await ShoppingBag.findAll({
+        where: {
+            userId: req.session.userId
+        }
+    })
+    let userItemOnBagId = userBag.map(ele => ele.itemId)
+
+    items.forEach(item => {
+        if (userItemOnBagId.includes(item.itemId)) {
+            item.onBag = true
+
         }
     });
     return items

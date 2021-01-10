@@ -20,7 +20,7 @@
           <md-icon v-if="item.favorite">favorite</md-icon>
           <md-icon v-else>favorite_border</md-icon>
         </md-button>
-        <md-button>
+        <md-button @click="addToBag(item,1)">
           <md-icon>shopping_bag</md-icon>
         </md-button>
       </md-card-actions>
@@ -62,6 +62,9 @@ export default {
         }
         this.$store.dispatch("removeFavorite", item.itemId);
       }
+    },
+    addToBag(item, quantity) {
+      this.$store.dispatch("addToBag", { item, quantity });
     }
   },
   apollo: {
