@@ -13,32 +13,41 @@
       </md-card-header>
 
       <md-card-actions>
-        <md-button>
+        <md-button @click="setDialog(item,'search')">
           <md-icon>search</md-icon>
         </md-button>
         <md-button @click="updateFavorite(item)">
           <md-icon v-if="item.favorite">favorite</md-icon>
           <md-icon v-else>favorite_border</md-icon>
         </md-button>
-        <md-button @click="addToBag(item,1)">
+        <md-button @click="setDialog(item,'add')">
           <md-icon>shopping_bag</md-icon>
         </md-button>
       </md-card-actions>
     </md-card>
+    <ItemDialog />
   </div>
 </template>
 
 <script>
+import ItemDialog from "./ItemDialog";
 import gql from "graphql-tag";
 
 export default {
   name: "MainPageUser",
+  components: { ItemDialog },
   data: () => {
     return {
       items: [],
       itemsList: [],
       singleViewDialog: false
     };
+  },
+  computed: {
+    // ...mapGetters["showItemDialogData"],
+    showItemDialogData() {
+      return this.$store.state.showItemDialogData;
+    }
   },
 
   async created() {
@@ -65,6 +74,15 @@ export default {
     },
     addToBag(item, quantity) {
       this.$store.dispatch("addToBag", { item, quantity });
+    },
+    setDialog(itemData, add_search, quantity = 0) {
+      let item = {
+        add_search,
+        quantity,
+        itemData: itemData
+      };
+      item.showItemDialog = true;
+      this.$store.dispatch("setShowItemData", item);
     }
   },
   apollo: {
@@ -85,8 +103,9 @@ export default {
 <style scoped>
 #itemTable {
   display: flex;
-
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 h3 {
   margin: 40px 0 0;
@@ -110,5 +129,8 @@ a {
 }
 .itemImg {
   width: 120px;
+}
+.showItemDialog {
+  overflow: auto;
 }
 </style>

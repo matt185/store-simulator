@@ -68,20 +68,24 @@
               <md-tooltip md-direction="bottom">Shopping Bag</md-tooltip>
             </md-button>
             <md-menu-content>
-              <md-list-item class="md-elevation-1" v-for="item in bags" :key="item.itemId">
+              <md-list-item v-if="bags.length===0">
+                <div class="add_button">
+                  <md-button to="/">
+                    <md-icon>add_circle</md-icon>
+                  </md-button>
+                </div>
+              </md-list-item>
+              <md-list-item v-else class="md-elevation-1" v-for="item in bags" :key="item.itemId">
                 <md-avatar>
                   <img src="https://placeimg.com/40/40/people/1" alt="People" />
                 </md-avatar>
 
-                <div class="md-list-item-text">
+                <div class="md-list-item-text" to="/shopping_bag">
                   <span>{{item.itemId}}</span>
                   <!-- <span>{{item.itemName}}</span> -->
                   <p>{{item.quantity}}</p>
                 </div>
-                <md-button
-                  class="md-icon-button md-list-action"
-                  @click="removeFromBag(item.itemId)"
-                >
+                <md-button class="md-icon-button md-list-action" @click="removeFromBag(item)">
                   <md-icon class="md-primary">clear</md-icon>
                 </md-button>
               </md-list-item>
@@ -216,8 +220,8 @@ export default {
     updateFavorite(id) {
       this.$store.dispatch("removeFavorite", id);
     },
-    removeFromBag(id) {
-      this.$store.dispatch("removeFromBag", id);
+    removeFromBag(item) {
+      this.$store.dispatch("removeFromBag", item);
     }
   },
   apollo: {
@@ -275,6 +279,13 @@ export default {
 }
 .favorite {
   background-color: rgb(127, 127, 131);
+}
+
+.add_button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 

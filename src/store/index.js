@@ -15,7 +15,12 @@ export default new Vuex.Store({
     favorite: [],
     user: {},
     bags: [],
-    favoriteId: ""
+    showItemDialogData: {
+      quantity: 0,
+      itemData: {
+        itemId: ""
+      }
+    }
   },
   mutations: {
     setItemsList(state, itemList) {
@@ -40,7 +45,36 @@ export default new Vuex.Store({
     removeFromBag(state, item) {
       let index = state.bags.indexOf(item)
       state.bags.splice(index, 1)
+    },
+    setShowItemData(state, item) {
+      state.showItemDialogData = item
+    },
+    resetShowItemData(state) {
+      state.showItemDialogData = {
+        showItemDialog: false
+      }
+    },
+    setDialogFavorite(state) {
+      state.showItemDialogData.itemData.favorite = !state.showItemDialogData.itemData.favorite
+    },
+    updateItemAdd(state, item) {
+      for (let ele of state.items) {
+        if (ele.itemId === item.itemId) {
+          ele.amount += item.quantity
+        }
+      }
+    },
+    updateItemRemove(state, {
+      item,
+      quantity
+    }) {
+      for (let ele of state.items) {
+        if (ele.itemId === item.itemId) {
+          ele.amount -= quantity
+        }
+      }
     }
+
 
   },
   actions: {
@@ -143,22 +177,44 @@ export default new Vuex.Store({
         }
       })
       commit("addToBag", item)
-
+      commit("updateItemRemove", {
+        item,
+        quantity
+      })
     },
     async removeFromBag({
       commit
-    }, id) {
+    }, item) {
+
       try {
         await graphqlClient.mutate({
           mutation: REMOVE_FROM_BAG,
           variables: {
-            itemId: id
+            itemId: item.itemId
           }
         })
-        commit("removeFromBag", id)
+        commit("removeFromBag", item.itemId)
+        commit("updateItemAdd", item)
       } catch (e) {
         console.log(e)
       }
+    },
+    setShowItemData({
+      commit
+    }, item) {
+      // * add graphqlClient for search data if need
+      commit("setShowItemData", item)
+    },
+    resetShowItemData({
+      commit
+    }, item) {
+      // * add graphqlClient for search data if need
+      commit("resetShowItemData", item)
+    },
+    setFavoriteFromDialog({
+      commit
+    }) {
+      commit("setDialogFavorite")
     }
 
   },
@@ -167,7 +223,8 @@ export default new Vuex.Store({
   getters: {
     items: state => state.items,
     favorite: state => state.favorite,
-    bags: state => state.bags
+    bags: state => state.bags,
+    showItemDialogData: state => state.showItemDialogData
   },
   modules: {}
 })
