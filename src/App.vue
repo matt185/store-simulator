@@ -216,7 +216,6 @@ export default {
     setMenuVisible() {
       this.menuVisible = false;
     },
-    setFavoriteMenuVisible() {},
     updateFavorite(id) {
       this.$store.dispatch("removeFavorite", id);
     },

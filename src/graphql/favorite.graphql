@@ -3,6 +3,7 @@ query favorites {
               itemId
               amount
               itemName
+              price
               favorite
             }
           }
