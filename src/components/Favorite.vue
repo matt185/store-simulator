@@ -1,13 +1,20 @@
 <template>
-  <div>
-    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+  <div class="favorite_table">
+    <md-table
+      v-if="searched"
+      v-model="favorite"
+      md-sort="name"
+      md-sort-order="asc"
+      md-card
+      md-fixed-header
+    >
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
           <h1 class="md-title">Favorite</h1>
         </div>
 
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="Search by article..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
 
@@ -40,7 +47,7 @@ const toLower = text => {
 
 const searchByName = (items, term) => {
   if (term) {
-    return items.filter(item => toLower(item.name).includes(toLower(term)));
+    return items.filter(item => toLower(item.itemId).includes(toLower(term)));
   }
 
   return items;
@@ -64,7 +71,7 @@ export default {
       window.alert("Noop");
     },
     searchOnTable() {
-      this.searched = searchByName(this.users, this.search);
+      this.searched = searchByName(this.bags, this.search);
     },
     updateFavorite(id) {
       this.$store.dispatch("removeFavorite", id);
@@ -78,7 +85,6 @@ export default {
   width: 82%;
   border-spacing: 0;
   border-collapse: collapse;
-  overflow: hidden;
   margin-left: 74px;
 }
 </style>

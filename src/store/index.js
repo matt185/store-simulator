@@ -39,11 +39,19 @@ export default new Vuex.Store({
     setBagsList(state, bagList) {
       state.bags = bagList
     },
-    addToBag(state, item) {
-      state.bags = [...state.bags, item]
+    addToBag(state, {
+      item,
+      quantity
+    }) {
+      let newItem = {
+        itemId: item.itemId,
+        quantity,
+        TotalPrice: item.price * quantity
+      }
+      state.bags = [...state.bags, newItem]
     },
     removeFromBag(state, item) {
-      let index = state.bags.indexOf(item)
+      let index = state.bags.map(item => item.itemId).indexOf(item)
       state.bags.splice(index, 1)
     },
     setShowItemData(state, item) {
@@ -176,7 +184,10 @@ export default new Vuex.Store({
           quantity: quantity
         }
       })
-      commit("addToBag", item)
+      commit("addToBag", {
+        item,
+        quantity
+      })
       commit("updateItemRemove", {
         item,
         quantity
