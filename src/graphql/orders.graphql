@@ -1,0 +1,14 @@
+query orders{
+  orders{
+    orderId
+    itemAmount
+    status
+    price
+    itemList{
+      itemId
+      quantity
+      price
+      TotalPrice
+    }
+  }
+}

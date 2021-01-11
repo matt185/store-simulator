@@ -154,6 +154,7 @@ export default {
     this.$store.dispatch("fetchItemsList");
     this.$store.dispatch("fetchFavoriteList");
     this.$store.dispatch("fetchBagList");
+    this.$store.dispatch("fetchOrders");
   },
   async created() {
     // const response = await this.$apollo.query({

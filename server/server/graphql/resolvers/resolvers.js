@@ -26,6 +26,9 @@ const addToBag = require('./shoppingBagResolver/addToBag')
 const bags = require('./shoppingBagResolver/bags')
 const removeFromBag = require('./shoppingBagResolver/removeFromBag')
 const removeAllFromBag = require('./shoppingBagResolver/removeAllFromBag')
+//* order resolver
+const orders = require('./orderResolver/orders')
+const newOrder = require('./orderResolver/newOrder')
 module.exports = {
     Query: {
         hello: hello,
@@ -40,6 +43,8 @@ module.exports = {
         todos,
         //* shoppingBag Query
         bags,
+        //*order Query
+        orders,
     },
     Mutation: {
         //* user Mutation
@@ -61,6 +66,8 @@ module.exports = {
         //*shoppingBag Mutation
         addToBag,
         removeFromBag,
-        removeAllFromBag
+        removeAllFromBag,
+        //*order Mutation
+        newOrder,
     }
 }

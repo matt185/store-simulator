@@ -1,7 +1,4 @@
 const {
-    AdvancedConsoleLogger
-} = require('typeorm')
-const {
     ShoppingBag
 } = require('../../../../database/models')
 

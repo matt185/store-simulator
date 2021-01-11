@@ -8,6 +8,7 @@ import GET_FAVORITE from "../graphql/favorite.graphql"
 import GET_BAG from "../graphql/bags.graphql"
 import ADD_TO_BAG from "../graphql/addToBags.graphql"
 import REMOVE_FROM_BAG from "../graphql/removeFromBag.graphql"
+import GET_ORDERS from "../graphql/orders.graphql"
 
 export default new Vuex.Store({
   state: {
@@ -15,6 +16,8 @@ export default new Vuex.Store({
     favorite: [],
     user: {},
     bags: [],
+    orders: [],
+    itemOrdered: [],
     showItemDialogData: {
       quantity: 0,
       itemData: {
@@ -31,6 +34,12 @@ export default new Vuex.Store({
     },
     updateFavorite(state, updated) {
       state.favorite = [...state.favorite, updated]
+    },
+    setItemOrdered(state, item) {
+      state.itemOrdered = item
+    },
+    setOrders(state, item) {
+      state.orders = item
     },
     removeFavorite(state, updated) {
       let index = state.favorite.indexOf((item) => item.itemId == updated)
@@ -125,7 +134,18 @@ export default new Vuex.Store({
         console.log(e)
       }
     },
-
+    async fetchOrders({
+      commit
+    }) {
+      try {
+        const response = await graphqlClient.query({
+          query: GET_ORDERS
+        })
+        commit('setOrders', response.data.bags)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     async addFavorite({
         commit
       },
@@ -235,6 +255,8 @@ export default new Vuex.Store({
     items: state => state.items,
     favorite: state => state.favorite,
     bags: state => state.bags,
+    orders: state => state.orders,
+    itemOrdered: state => state.itemOrdered,
     showItemDialogData: state => state.showItemDialogData
   },
   modules: {}
