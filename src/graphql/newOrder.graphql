@@ -1,0 +1,15 @@
+mutation newOrder{
+  newOrder{
+    userId
+    orderId
+    itemAmount
+    price
+    
+    itemList{
+      quantity
+      TotalPrice
+      price
+      itemId
+    }
+  }
+}

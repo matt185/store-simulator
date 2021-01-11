@@ -9,6 +9,10 @@ import GET_BAG from "../graphql/bags.graphql"
 import ADD_TO_BAG from "../graphql/addToBags.graphql"
 import REMOVE_FROM_BAG from "../graphql/removeFromBag.graphql"
 import GET_ORDERS from "../graphql/orders.graphql"
+import NEW_ORDER from "../graphql/newOrder.graphql"
+import DELETE_ORDER from "../graphql/deleteOrder.graphql"
+
+
 
 export default new Vuex.Store({
   state: {
@@ -41,8 +45,15 @@ export default new Vuex.Store({
     setOrders(state, item) {
       state.orders = item
     },
+    addOrder(state, item) {
+      state.orders = [...state.orders, item]
+    },
+    deleteOrder(state, id) {
+      let index = state.orders.map(item => item.orderId).indexOf(id)
+      state.orders.splice(index, 1)
+    },
     removeFavorite(state, updated) {
-      let index = state.favorite.indexOf((item) => item.itemId == updated)
+      let index = state.favorite.map(item => item.itemId).indexOf(updated)
       state.favorite.splice(index, 1)
     },
     setBagsList(state, bagList) {
@@ -62,6 +73,9 @@ export default new Vuex.Store({
     removeFromBag(state, item) {
       let index = state.bags.map(item => item.itemId).indexOf(item)
       state.bags.splice(index, 1)
+    },
+    removeAllFromBag(state) {
+      state.bags = []
     },
     setShowItemData(state, item) {
       state.showItemDialogData = item
@@ -141,11 +155,13 @@ export default new Vuex.Store({
         const response = await graphqlClient.query({
           query: GET_ORDERS
         })
-        commit('setOrders', response.data.bags)
+        console.log(response)
+        commit('setOrders', response.data.orders)
       } catch (e) {
         console.log(e)
       }
     },
+
     async addFavorite({
         commit
       },
@@ -246,6 +262,26 @@ export default new Vuex.Store({
       commit
     }) {
       commit("setDialogFavorite")
+    },
+    async newOrder({
+      commit
+    }) {
+      let response = await graphqlClient.mutate({
+        mutation: NEW_ORDER
+      })
+      commit('addOrder', response.data.newOrder)
+      commit('removeAllFromBag')
+    },
+    async deleteOrder({
+      commit
+    }, orderId) {
+      await graphqlClient.mutate({
+        mutation: DELETE_ORDER,
+        variables: {
+          orderId
+        }
+      })
+      commit('deleteOrder', orderId)
     }
 
   },

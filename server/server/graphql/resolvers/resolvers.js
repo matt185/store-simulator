@@ -29,6 +29,7 @@ const removeAllFromBag = require('./shoppingBagResolver/removeAllFromBag')
 //* order resolver
 const orders = require('./orderResolver/orders')
 const newOrder = require('./orderResolver/newOrder')
+const deleteOrder = require('./orderResolver/deleteOrder')
 module.exports = {
     Query: {
         hello: hello,
@@ -69,5 +70,6 @@ module.exports = {
         removeAllFromBag,
         //*order Mutation
         newOrder,
+        deleteOrder
     }
 }

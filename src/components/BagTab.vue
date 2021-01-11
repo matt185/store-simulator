@@ -31,7 +31,7 @@
       </md-table-row>
     </md-table>
     <div class="md-toolbar-section-end">
-      <md-button class="md-dense md-primary md-raised">order</md-button>
+      <md-button class="md-dense md-primary md-raised" @click="newOrder()">order</md-button>
     </div>
     <ItemDialog />
   </div>
@@ -86,6 +86,9 @@ export default {
       };
       item.showItemDialog = true;
       this.$store.dispatch("setShowItemData", item);
+    },
+    newOrder() {
+      this.$store.dispatch("newOrder");
     }
   }
 };

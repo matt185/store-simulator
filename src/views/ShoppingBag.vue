@@ -7,7 +7,9 @@
       <md-tab md-label="shopping bag">
         <BagTab />
       </md-tab>
-      <md-tab md-label="order">Order</md-tab>
+      <md-tab md-label="order">
+        <Order />
+      </md-tab>
     </md-tabs>
   </div>
 </template>
@@ -15,14 +17,15 @@
 <script>
 import Favorite from "../components/Favorite";
 import BagTab from "../components/BagTab";
+import Order from "../components/OrderView";
 export default {
   name: "ShoppingBag",
-  components: { Favorite, BagTab }
+  components: { Favorite, BagTab, Order }
 };
 </script>
 
 <style scoped>
 .container {
-  max-width: 850px;
+  max-width: 880px;
 }
 </style>

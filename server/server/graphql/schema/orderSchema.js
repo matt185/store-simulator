@@ -34,6 +34,6 @@ extend type Query{
 extend type Mutation{
     newOrder:Order
     updateOrder(orderId:String):Order
-    deleteOrder(orderId:String!):Order
+    deleteOrder(orderId:String!):Boolean
 }
 `
