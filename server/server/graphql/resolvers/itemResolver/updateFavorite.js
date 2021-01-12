@@ -31,6 +31,7 @@ module.exports =
                 itemId: item.itemId,
                 itemName: item.itemName,
                 itemClass: item.itemClass,
+                image: item.image,
                 amount: item.amount,
                 price: item.price,
                 favorite: true,

@@ -12,6 +12,5 @@ module.exports =
                 favorite: true
             }
         })
-
         return favorites
     }

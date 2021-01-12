@@ -54,6 +54,7 @@ module.exports = async (_, {
     await ShoppingBag.create({
         userId: req.session.userId,
         itemId: newItemId,
+        image: item.image,
         quantity: quantity,
         TotalPrice: totalPrice
     })

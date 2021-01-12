@@ -8,7 +8,7 @@
     </div>
     <div class="dialogBody">
       <div>
-        <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
+        <img class="itemImg" :src="showItemDialogData.itemData.image" />
       </div>
       <div class="itemDescription">
         <span class="md-headline">{{showItemDialogData.itemData.itemName}}</span>

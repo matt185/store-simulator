@@ -11,6 +11,7 @@ type Item{
     amount:Int!
     minAmount:Int!
     price:Float
+    image:String
     favorite:Boolean
     onBag:Boolean
     createdAt:Date
@@ -22,6 +23,7 @@ type Favorite {
     itemId: String!
     itemClass: String!
     itemName: String!
+    image:String
     amount: Int!
     price: Float
     favorite: Boolean
@@ -48,8 +50,8 @@ extend type Query {
 }
 
 extend type Mutation{
-    addItem(itemId:String!,itemClass: String!, itemName: String!, amount: Int!, minAmount: Int!, price: Float!):Item
-    updateItem(itemId: String, itemClass: String, itemName: String, amount: Int, minAmount: Int, price: Float!): Item
+    addItem(itemId:String!,itemClass: String!, itemName: String!,image:String!, amount: Int!, minAmount: Int!, price: Float!):Item
+    updateItem(itemId: String, itemClass: String, itemName: String, image: String!, amount: Int, minAmount: Int, price: Float!): Item
     addFavorite(itemId:String!):Boolean!
     updateFavorite(itemId: String!): Item
     deleteItem(itemId:String!):Boolean!

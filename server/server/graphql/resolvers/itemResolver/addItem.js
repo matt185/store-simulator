@@ -9,6 +9,7 @@ module.exports = async (_, {
     itemId,
     itemClass,
     itemName,
+    image,
     amount,
     minAmount,
     price
@@ -43,6 +44,7 @@ module.exports = async (_, {
         itemClass,
         itemName,
         amount,
+        image,
         minAmount,
         price,
         favorite: false,

@@ -1,0 +1,21 @@
+mutation addItem( $itemId: String!,$itemClass: String!, $itemName: String!, $image: String!, $amount: Int!,$minAmount: Int!,$price: Float!,) {
+            addItem(
+              itemId: $itemId
+              itemClass: $itemClass
+              itemName: $itemName
+              image: $image
+              amount: $amount
+              minAmount: $minAmount
+              price: $price
+            ) {
+              itemId
+              itemName
+              itemClass
+              image
+              amount
+              minAmount
+              price
+              createdAt
+              updatedAt
+            }
+          }

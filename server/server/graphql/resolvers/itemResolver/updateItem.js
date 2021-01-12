@@ -9,7 +9,8 @@ module.exports = async (_, {
     ItemClass,
     amount,
     minAmount,
-    price
+    price,
+    image
 }, {
     req
 }) => {
@@ -76,6 +77,15 @@ module.exports = async (_, {
     if (price) {
         await Item.update({
             price
+        }, {
+            where: {
+                itemId
+            }
+        })
+    }
+    if (image) {
+        await Item.update({
+            image
         }, {
             where: {
                 itemId

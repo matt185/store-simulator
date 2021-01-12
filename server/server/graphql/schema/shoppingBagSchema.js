@@ -9,6 +9,7 @@ type ShoppingBag {
     itemId: String!
     quantity: Int!
     TotalPrice: Float
+    image:String
     onBag:Boolean!
      createdAt: Date
      updatedAt: Date

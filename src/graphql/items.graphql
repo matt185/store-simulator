@@ -3,6 +3,7 @@
         itemId
         itemClass
         itemName
+        image
         amount
         minAmount
         price

@@ -3,7 +3,7 @@
     <md-card v-for="(item,i) in items" :key="i" md-with-hover>
       <md-card-header>
         <md-card-media md-big>
-          <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
+          <img class="itemImg" :src="item.image" alt="People" />
         </md-card-media>
         <md-card-header-text>
           <div class="md-subhead">{{item.itemId}}</div>
@@ -52,6 +52,7 @@ export default {
 
   async created() {
     this.items = this.$store.state.items;
+    console.log(this.items);
     this.itemsList = this.items;
   },
   methods: {

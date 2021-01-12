@@ -29,10 +29,11 @@
                 <label for="itemId">ItemId</label>
                 <md-input name="itemId" id="itemId" v-model="form.itemId" />
               </md-field>
-              <!-- <md-field class="selectionField">
-                <label for="image">Image</label>
-                <md-input name="itemId" id="itemId" v-model="form.image" />
-              </md-field>-->
+              <md-field class="selectionField">
+                <label for="image">Image Link</label>
+                <!-- <md-file name="image" id="image" v-model="form.image" " /> -->
+                <md-input name="image" id="image" v-model="form.image" />
+              </md-field>
               <md-field class="selectionField">
                 <label for="itemClass">ItemClass</label>
                 <md-input name="itemClass" id="itemClass" v-model="form.itemClass" />
@@ -77,7 +78,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="itemId" md-sort-by="itemId">{{ item.itemId }}</md-table-cell>
         <md-table-cell md-label="Image">
-          <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
+          <img class="itemImg" :src="item.image" />
         </md-table-cell>
         <md-table-cell md-label="itemClass" md-sort-by="itemClass">{{ item. itemClass }}</md-table-cell>
         <md-table-cell md-label="itemName" md-sort-by="itemName">{{ item.itemName }}</md-table-cell>
@@ -100,41 +101,6 @@
       </md-table-row>
     </md-table>
   </div>
-  <!-- <md-card v-for="(item,i) in items" :key="i" md-with-hover>
-      <md-card-header>
-        <md-card-media md-big>
-          <img class="itemImg" src="https://i.ibb.co/vxxMqbd/IMG-1019.jpg" alt="People" />
-        </md-card-media>
-        <md-card-header-text>
-          <div class="md-subhead">{{item.itemId}}</div>
-          <div class="md-title">{{item.itemName}}</div>
-          <div class="md-subhead">{{item.itemClass}}</div>
-        </md-card-header-text>
-      </md-card-header>
-
-      <md-card-actions>
-        <md-button></md-button>
-        <md-button>Add</md-button>
-      </md-card-actions>
-  </md-card>-->
-  <!-- <table border="1px" id="table">
-      <tr>
-        <td class="head"></td>
-        <td class="head">id</td>
-        <td class="head">itemClass</td>
-        <td class="head">itemName</td>
-        <td class="head">amount</td>
-        <td class="head">price</td>
-      </tr>
-      <tr v-for="(item,i) in items" :key="i">
-        <td class="head">{{i+1}}</td>
-        <td>{{item.itemId}}</td>
-        <td>{{item.itemClass}}</td>
-        <td>{{item.itemName}}</td>
-        <td>{{item.amount}}</td>
-        <td>{{item.price}}</td>
-      </tr>
-  </table>-->
 </template>
 
 <script>
@@ -163,6 +129,7 @@ export default {
     form: {
       itemId: "",
       itemClass: "",
+      image: "",
       itemName: "",
       amount: "",
       minAmount: "",
@@ -176,12 +143,14 @@ export default {
   },
   methods: {
     newItem() {
+      console.log(this.form.image);
       this.$apollo.mutate({
         mutation: gql`
           mutation addItem(
             $itemId: String!
             $itemClass: String!
             $itemName: String!
+            $image: String!
             $amount: Int!
             $minAmount: Int!
             $price: Float!
@@ -190,6 +159,7 @@ export default {
               itemId: $itemId
               itemClass: $itemClass
               itemName: $itemName
+              image: $image
               amount: $amount
               minAmount: $minAmount
               price: $price
@@ -197,17 +167,19 @@ export default {
               itemId
               itemName
               itemClass
+              image
               amount
               minAmount
               price
-              created_At
-              updated_At
+              createdAt
+              updatedAt
             }
           }
         `,
         variables: {
           itemId: this.form.itemId,
           itemName: this.form.itemName,
+          image: this.form.image,
           itemClass: this.form.itemClass,
           amount: Number(this.form.amount),
           minAmount: Number(this.form.minAmount),
@@ -215,6 +187,7 @@ export default {
         }
       });
       this.searched.push(this.form);
+      this.$store.dispatch("addItem", this.form);
       this.newItemDialog = false;
     },
     searchOnTable() {
@@ -236,6 +209,7 @@ export default {
           this.searched.splice(i, 1);
         }
       }
+      this.$store.dispatch("removeItem", this.itemToDelete);
       this.itemToDelete = "";
     },
     onCancel() {

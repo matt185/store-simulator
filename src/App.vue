@@ -44,7 +44,7 @@
             <md-menu-content>
               <md-list-item class="md-elevation-1" v-for="item in favorite" :key="item.itemId">
                 <md-avatar>
-                  <img src="https://placeimg.com/40/40/people/1" alt="People" />
+                  <img :src="item.image" />
                 </md-avatar>
 
                 <div class="md-list-item-text">
@@ -77,7 +77,7 @@
               </md-list-item>
               <md-list-item v-else class="md-elevation-1" v-for="item in bags" :key="item.itemId">
                 <md-avatar>
-                  <img src="https://placeimg.com/40/40/people/1" alt="People" />
+                  <img :src="item.image" />
                 </md-avatar>
 
                 <div class="md-list-item-text" to="/shopping_bag">

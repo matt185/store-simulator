@@ -1,20 +1,17 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('UsersItemStores', {
+    await queryInterface.createTable('Items', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       itemId: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true
       },
       itemClass: {
         type: Sequelize.STRING,
@@ -25,7 +22,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       amount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      minAmount: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -34,6 +39,10 @@ module.exports = {
         allowNull: false,
       },
       favorite: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
+      onBag: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
@@ -48,6 +57,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('UsersItemStores');
+    await queryInterface.dropTable('Items');
   }
 };

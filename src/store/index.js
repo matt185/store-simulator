@@ -104,6 +104,13 @@ export default new Vuex.Store({
           ele.amount -= quantity
         }
       }
+    },
+    addItem(state, item) {
+      state.items = [...state.items, item]
+    },
+    removeItem(state, id) {
+      let index = state.items.map(item => item.itemId).indexOf(id)
+      state.items.splice(index, 1)
     }
 
 
@@ -155,7 +162,6 @@ export default new Vuex.Store({
         const response = await graphqlClient.query({
           query: GET_ORDERS
         })
-        console.log(response)
         commit('setOrders', response.data.orders)
       } catch (e) {
         console.log(e)
@@ -282,6 +288,17 @@ export default new Vuex.Store({
         }
       })
       commit('deleteOrder', orderId)
+    },
+    addItem({
+      commit
+    }, item) {
+
+      commit("addItem", item)
+    },
+    removeItem({
+      commit
+    }, id) {
+      commit("removeItem", id)
     }
 
   },

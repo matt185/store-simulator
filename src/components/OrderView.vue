@@ -69,7 +69,6 @@ export default {
       this.searched = searchByName(this.orders, this.search);
     },
     removeOrder(id) {
-      console.log(id);
       this.$store.dispatch("deleteOrder", id);
     }
   }
