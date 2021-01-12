@@ -48,9 +48,10 @@
                 </md-avatar>
 
                 <div class="md-list-item-text">
-                  <span>{{item.itemId}}</span>
-                  <span>{{item.itemName}}</span>
-                  <p>{{item.amount}}</p>
+                  <span class="md-title">{{item.itemId}}</span>
+                  <span class="md-subheading">{{item.itemName}}</span>
+                  <span v-if="item.amount>1" class="md-caption">({{item.amount}} items available)</span>
+                  <span v-else class="md-caption">({{item.amount}} item available)</span>
                 </div>
                 <md-button
                   class="md-icon-button md-list-action"
@@ -81,9 +82,10 @@
                 </md-avatar>
 
                 <div class="md-list-item-text" to="/shopping_bag">
-                  <span>{{item.itemId}}</span>
+                  <span class="md-headline">{{item.itemId}}</span>
                   <!-- <span>{{item.itemName}}</span> -->
-                  <p>{{item.quantity}}</p>
+                  <p v-if="item.quantity >1" class="md-caption">({{item.quantity}} items saved)</p>
+                  <p v-else class="md-caption">({{item.quantity}} item saved)</p>
                 </div>
                 <md-button class="md-icon-button md-list-action" @click="removeFromBag(item)">
                   <md-icon class="md-primary">clear</md-icon>
@@ -132,11 +134,9 @@
       </md-app-content>
     </md-app>
   </div>
-  <!-- <Navbar /> -->
 </template>
 
 <script>
-// import Navbar from "./components/Navbar.vue";
 import gql from "graphql-tag";
 import { partialAuth } from "./../server/server/constant";
 import { mapGetters } from "vuex";
