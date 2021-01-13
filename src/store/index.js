@@ -11,7 +11,7 @@ import REMOVE_FROM_BAG from "../graphql/removeFromBag.graphql"
 import GET_ORDERS from "../graphql/orders.graphql"
 import NEW_ORDER from "../graphql/newOrder.graphql"
 import DELETE_ORDER from "../graphql/deleteOrder.graphql"
-
+import NEW_ITEM from "../graphql/addItem.graphql"
 
 
 export default new Vuex.Store({
@@ -27,7 +27,8 @@ export default new Vuex.Store({
       itemData: {
         itemId: ""
       }
-    }
+    },
+    showNewItemDialog: {}
   },
   mutations: {
     setItemsList(state, itemList) {
@@ -111,7 +112,21 @@ export default new Vuex.Store({
     removeItem(state, id) {
       let index = state.items.map(item => item.itemId).indexOf(id)
       state.items.splice(index, 1)
-    }
+    },
+    setNewItemDialog(state, item) {
+      state.showNewItemDialog = item
+    },
+    openNewItemDialog(state) {
+      state.showNewItemDialog = {
+        newItemDialog: false
+      }
+    },
+    resetNewItemDialog(state) {
+      state.showNewItemDialog = {
+        newItemDialog: false
+      }
+    },
+
 
 
   },
@@ -167,7 +182,6 @@ export default new Vuex.Store({
         console.log(e)
       }
     },
-
     async addFavorite({
         commit
       },
@@ -289,17 +303,45 @@ export default new Vuex.Store({
       })
       commit('deleteOrder', orderId)
     },
-    addItem({
+    async addItem({
       commit
     }, item) {
-
+      await graphqlClient.mutate({
+        mutation: NEW_ITEM,
+        variables: {
+          itemId: item.itemId,
+          itemName: item.itemName,
+          itemClass: item.itemClass,
+          image: item.image,
+          amount: Number(item.amount),
+          minAmount: Number(item.minAmount),
+          price: Number(item.price)
+        }
+      })
       commit("addItem", item)
+
     },
     removeItem({
       commit
     }, id) {
       commit("removeItem", id)
-    }
+    },
+    setNewItemDialog({
+      commit
+    }, item) {
+      commit("setNewItemDialog", item)
+    },
+    openNewItemDialog({
+      commit
+    }) {
+      commit('openNewItemDialog')
+    },
+    resetNewItemDialog({
+      commit
+    }) {
+      commit("resetNewItemDialog")
+    },
+
 
   },
 
@@ -310,7 +352,8 @@ export default new Vuex.Store({
     bags: state => state.bags,
     orders: state => state.orders,
     itemOrdered: state => state.itemOrdered,
-    showItemDialogData: state => state.showItemDialogData
+    showItemDialogData: state => state.showItemDialogData,
+    showNewItemDialog: state => state.showNewItemDialog
   },
   modules: {}
 })

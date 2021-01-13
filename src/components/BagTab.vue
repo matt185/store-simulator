@@ -30,7 +30,7 @@
         </md-table-cell>
       </md-table-row>
     </md-table>
-    <div class="md-toolbar-section-end">
+    <div class="buttonContainer md-toolbar-section-end">
       <md-button class="md-dense md-primary md-raised" @click="newOrder()">order</md-button>
     </div>
     <ItemDialog />
@@ -101,5 +101,9 @@ export default {
   border-collapse: collapse;
   overflow: hidden;
   margin-left: 74px;
+}
+.buttonContainer {
+  width: 100%;
+  justify-content: flex-end;
 }
 </style>

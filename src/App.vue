@@ -6,34 +6,34 @@
           <md-icon>menu</md-icon>
           <md-tooltip md-direction="bottom">Menu</md-tooltip>
         </md-button>
-        <span class="md-title">My Title</span>
+        <span class="md-title">My Store</span>
         <div id="nav">
           <md-tabs class="md-primary" md-sync-route>
             <md-tab id="tab-home" md-label="Home" to="/" exact></md-tab>
-            <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
-            <md-tab v-if="auth" id="tab-signUp" md-label="Agenda" to="/messages"></md-tab>
-            <md-tab v-if="!me" id="tab-signIn" md-label="SignIn" to="/signIn"></md-tab>
+            <md-tab v-if="auth" id="agenda" md-label="Agenda" to="/messages"></md-tab>
           </md-tabs>
         </div>
-        <md-autocomplete
-          class="search"
-          v-model="selected"
-          :md-options="selectionList"
-          md-layout="box"
-        >
-          <label>Search...</label>
-        </md-autocomplete>
-        <md-menu md-size="medium" md-align-trigger>
-          <md-button class="md-icon-button" md-menu-trigger>
-            <md-icon>sort</md-icon>
-            <md-tooltip md-direction="bottom">Filter Options</md-tooltip>
-          </md-button>
-          <md-menu-content>
-            <md-menu-item @click="searchField='all'">All</md-menu-item>
-            <md-menu-item @click="searchField='itemClass'">Item Class</md-menu-item>
-            <md-menu-item @click="searchField='itemName'">Item Name</md-menu-item>
-          </md-menu-content>
-        </md-menu>
+        <div class="searchBar">
+          <md-autocomplete
+            class="search"
+            v-model="selected"
+            :md-options="selectionList"
+            md-layout="box"
+          >
+            <label>Search...</label>
+          </md-autocomplete>
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button class="md-icon-button" md-menu-trigger>
+              <md-icon>sort</md-icon>
+              <md-tooltip md-direction="bottom">Filter Options</md-tooltip>
+            </md-button>
+            <md-menu-content>
+              <md-menu-item @click="searchField='all'">All</md-menu-item>
+              <md-menu-item @click="searchField='itemClass'">Item Class</md-menu-item>
+              <md-menu-item @click="searchField='itemName'">Item Name</md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </div>
 
         <div class="md-toolbar-section-end">
           <md-menu md-align-trigger md-size="big">
@@ -286,6 +286,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  justify-content: center;
+}
+.md-toolbar-section-end {
+  width: 10%;
 }
 </style>
 

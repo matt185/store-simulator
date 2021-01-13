@@ -9,6 +9,8 @@
           <div class="md-subhead">{{item.itemId}}</div>
           <div class="md-title">{{item.itemName}}</div>
           <div class="md-subhead">{{item.itemClass}}</div>
+          <div class="md-subheading">{{item.price}}$</div>
+          <div class="md-caption">({{item.amount}} item available)</div>
         </md-card-header-text>
       </md-card-header>
 
@@ -44,7 +46,6 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters["showItemDialogData"],
     showItemDialogData() {
       return this.$store.state.showItemDialogData;
     }
@@ -52,7 +53,6 @@ export default {
 
   async created() {
     this.items = this.$store.state.items;
-    console.log(this.items);
     this.itemsList = this.items;
   },
   methods: {
@@ -107,6 +107,7 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  width: 102%;
 }
 h3 {
   margin: 40px 0 0;
