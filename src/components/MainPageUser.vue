@@ -1,5 +1,6 @@
 <template>
   <div id="itemTable">
+    {{this.$store.state.userSearchValue}}
     <md-card v-for="(item,i) in items" :key="i" md-with-hover>
       <md-card-header>
         <md-card-media md-big>
@@ -35,25 +36,39 @@
 import ItemDialog from "./ItemDialog";
 import gql from "graphql-tag";
 
+const toLower = text => {
+  return text.toString().toLowerCase();
+};
+
+const searchByName = (items, field, term) => {
+  if (term) {
+    return items.filter(item => toLower(item[field]).includes(toLower(term)));
+  }
+  return items;
+};
+
 export default {
   name: "MainPageUser",
   components: { ItemDialog },
   data: () => {
     return {
-      items: [],
-      itemsList: [],
       singleViewDialog: false
     };
   },
   computed: {
     showItemDialogData() {
       return this.$store.state.showItemDialogData;
+    },
+    items() {
+      if (!this.$store.state.userSearchValue) {
+        return this.$store.state.items;
+      }
+      return searchByName(
+        this.$store.state.items,
+        this.$store.state.userSearchField,
+        this.$store.state.userSearchValue
+      );
     }
-  },
-
-  async created() {
-    this.items = this.$store.state.items;
-    this.itemsList = this.items;
   },
   methods: {
     updateFavorite(item) {

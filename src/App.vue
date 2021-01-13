@@ -16,9 +16,10 @@
         <div class="searchBar">
           <md-autocomplete
             class="search"
-            v-model="selected"
+            v-model="search"
             :md-options="selectionList"
             md-layout="box"
+            @input="setUserSearch()"
           >
             <label>Search...</label>
           </md-autocomplete>
@@ -28,9 +29,9 @@
               <md-tooltip md-direction="bottom">Filter Options</md-tooltip>
             </md-button>
             <md-menu-content>
-              <md-menu-item @click="searchField='all'">All</md-menu-item>
-              <md-menu-item @click="searchField='itemClass'">Item Class</md-menu-item>
-              <md-menu-item @click="searchField='itemName'">Item Name</md-menu-item>
+              <md-menu-item @click="searchField('all')">All</md-menu-item>
+              <md-menu-item @click="searchField('itemClass')">Item Class</md-menu-item>
+              <md-menu-item @click="searchField('itemName')">Item Name</md-menu-item>
             </md-menu-content>
           </md-menu>
         </div>
@@ -140,13 +141,14 @@
 import gql from "graphql-tag";
 import { partialAuth } from "./../server/server/constant";
 import { mapGetters } from "vuex";
+
 export default {
   name: "LastRowFixed",
   data: () => ({
     me: {},
     menuVisible: false,
-    selected: "",
-    searchField: "all",
+    search: "",
+    // searchField: "all",
     favoriteList: []
   }),
 
@@ -173,9 +175,16 @@ export default {
   },
   computed: {
     ...mapGetters(["favorite", "bags"]),
-    items() {
-      return this.$store.getters.items;
-    },
+    // items() {
+    //   if (this.$store.state.userSearchField === "all") {
+    //     return this.$store.state.items;
+    //   }
+    //   return searchByName(
+    //     this.$store.state.items,
+    //     this.searchField,
+    //     this.search
+    //   );
+    // },
     selectionList() {
       let filter = this.searchField;
       let items = this.$store.state.items;
@@ -222,6 +231,12 @@ export default {
     },
     removeFromBag(item) {
       this.$store.dispatch("removeFromBag", item);
+    },
+    searchField(val) {
+      this.$store.dispatch("setUserSearchField", val);
+    },
+    setUserSearch() {
+      this.$store.dispatch("setUserSearch", this.search);
     }
   },
   apollo: {

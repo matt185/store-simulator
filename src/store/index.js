@@ -21,6 +21,8 @@ export default new Vuex.Store({
     user: {},
     bags: [],
     orders: [],
+    userSearchValue: "",
+    userSearchField: "itemName",
     itemOrdered: [],
     showItemDialogData: {
       quantity: 0,
@@ -126,6 +128,12 @@ export default new Vuex.Store({
         newItemDialog: false
       }
     },
+    setUserSearchField(state, value) {
+      state.userSearchField = value
+    },
+    setUserSearch(state, value) {
+      state.userSearchValue = value
+    }
 
 
 
@@ -341,6 +349,16 @@ export default new Vuex.Store({
     }) {
       commit("resetNewItemDialog")
     },
+    setUserSearchField({
+      commit
+    }, value) {
+      commit("setUserSearchField", value)
+    },
+    setUserSearch({
+      commit
+    }, value) {
+      commit("setUserSearch", value)
+    }
 
 
   },
@@ -353,7 +371,9 @@ export default new Vuex.Store({
     orders: state => state.orders,
     itemOrdered: state => state.itemOrdered,
     showItemDialogData: state => state.showItemDialogData,
-    showNewItemDialog: state => state.showNewItemDialog
+    showNewItemDialog: state => state.showNewItemDialog,
+    userSearchValue: state => state.userSearchValue,
+    userSearchField: state => state.userSearchField,
   },
   modules: {}
 })
