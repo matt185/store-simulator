@@ -319,7 +319,7 @@ export default new Vuex.Store({
         }
       })
       commit("addItem", item)
-
+      commit("resetNewItemDialog")
     },
     removeItem({
       commit

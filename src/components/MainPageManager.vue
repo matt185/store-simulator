@@ -83,11 +83,9 @@ export default {
   name: "MainPageManager",
   components: { newItemDialog },
   data: () => ({
-    searchField: "itemName",
+    searchField: "itemId",
     search: null,
     deleteDialog: false,
-    newItemDialog: false,
-    newItemDialog1: false,
     itemToDelete: "",
     form: {
       itemId: "",

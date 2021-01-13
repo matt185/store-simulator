@@ -68,7 +68,6 @@ export default {
     },
     newItem() {
       this.$store.dispatch("addItem", this.form);
-      this.$store.dispatch("resetNewItemDialog");
     }
   }
 };

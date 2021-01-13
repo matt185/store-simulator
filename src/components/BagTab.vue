@@ -1,13 +1,13 @@
 <template>
   <div>
-    <md-table v-model="bags" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
+    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
           <h1 class="md-title">Shopping Bag</h1>
         </div>
 
         <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by article..." v-model="search" @input="searchOnTable" />
+          <md-input placeholder="Search by article..." v-model="search" />
         </md-field>
       </md-table-toolbar>
 
@@ -43,35 +43,33 @@ const toLower = text => {
   return text.toString().toLowerCase();
 };
 
-const searchByName = (items, term) => {
+const searchByName = (items, field, term) => {
   if (term) {
-    return items.filter(item => toLower(item.itemId).includes(toLower(term)));
+    return items.filter(item => toLower(item[field]).includes(toLower(term)));
   }
-
   return items;
 };
 export default {
   name: "BagTab",
   components: { ItemDialog },
   data() {
-    return { search: null, searched: [] };
-  },
-
-  created() {
-    // this.searched = this.bags;
-    // console.log(this.searched);
+    return { search: null, searchField: "itemId" };
   },
   computed: {
-    bags() {
-      return this.$store.getters.bags;
+    searched() {
+      if (!this.search) {
+        return this.$store.state.bags;
+      }
+      return searchByName(
+        this.$store.state.bags,
+        this.searchField,
+        this.search
+      );
     }
   },
   methods: {
     newUser() {
       window.alert("Noop");
-    },
-    searchOnTable() {
-      this.searched = searchByName(this.bags, this.search);
     },
     removeFromBag(item) {
       this.$store.dispatch("removeFromBag", item);

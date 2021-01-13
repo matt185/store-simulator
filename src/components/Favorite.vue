@@ -1,13 +1,6 @@
 <template>
   <div class="favorite_table">
-    <md-table
-      v-if="searched"
-      v-model="favorite"
-      md-sort="name"
-      md-sort-order="asc"
-      md-card
-      md-fixed-header
-    >
+    <md-table v-model="searched" md-sort="name" md-sort-order="asc" md-card md-fixed-header>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
           <h1 class="md-title">Favorite</h1>
@@ -45,34 +38,31 @@ const toLower = text => {
   return text.toString().toLowerCase();
 };
 
-const searchByName = (items, term) => {
+const searchByName = (items, field, term) => {
   if (term) {
-    return items.filter(item => toLower(item.itemId).includes(toLower(term)));
+    return items.filter(item => toLower(item[field]).includes(toLower(term)));
   }
-
   return items;
 };
 
 export default {
   name: "Favorite",
   data() {
-    return { search: null, searched: [] };
-  },
-  created() {
-    this.searched = this.favorite;
+    return { search: null, searchField: "itemName" };
   },
   computed: {
-    favorite() {
-      return this.$store.getters.favorite;
+    searched() {
+      if (!this.search) {
+        return this.$store.state.favorite;
+      }
+      return searchByName(
+        this.$store.state.favorite,
+        this.searchField,
+        this.search
+      );
     }
   },
   methods: {
-    newUser() {
-      window.alert("Noop");
-    },
-    searchOnTable() {
-      this.searched = searchByName(this.bags, this.search);
-    },
     updateFavorite(id) {
       this.$store.dispatch("removeFavorite", id);
     }
