@@ -73,19 +73,11 @@ export default {
   methods: {
     updateFavorite(item) {
       if (!item.favorite) {
-        for (let i = 0; i < this.itemsList.length; i++) {
-          if (this.itemsList[i].itemId === item.itemId) {
-            this.itemsList[i].favorite = !this.itemsList[i].favorite;
-          }
-        }
         this.$store.dispatch("addFavorite", item);
+        this.$store.dispatch("setItemsFavorite", item.itemId);
       } else {
-        for (let i = 0; i < this.itemsList.length; i++) {
-          if (this.itemsList[i].itemId === item.itemId) {
-            this.itemsList[i].favorite = !this.itemsList[i].favorite;
-          }
-        }
         this.$store.dispatch("removeFavorite", item.itemId);
+        this.$store.dispatch("setItemsFavorite", item.itemId);
       }
     },
     addToBag(item, quantity) {

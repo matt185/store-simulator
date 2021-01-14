@@ -42,6 +42,10 @@ export default new Vuex.Store({
     updateFavorite(state, updated) {
       state.favorite = [...state.favorite, updated]
     },
+    setItemsFavorite(state, id) {
+      let itemToUpdate = state.items.filter(item => item.itemId === id)
+      itemToUpdate[0].favorite = !itemToUpdate[0].favorite
+    },
     setItemOrdered(state, item) {
       state.itemOrdered = item
     },
@@ -207,6 +211,7 @@ export default new Vuex.Store({
       })
 
       commit('updateFavorite', item)
+
     },
     async removeFavorite({
         commit
@@ -230,7 +235,6 @@ export default new Vuex.Store({
         const updated = response.data.updateFavorite.itemId
 
         commit('removeFavorite', updated)
-
       } catch (e) {
         console.log(e)
       }
@@ -358,6 +362,11 @@ export default new Vuex.Store({
       commit
     }, value) {
       commit("setUserSearch", value)
+    },
+    setItemsFavorite({
+      commit
+    }, id) {
+      commit("setItemsFavorite", id)
     }
 
 

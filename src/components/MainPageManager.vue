@@ -8,7 +8,7 @@
 
         <div class="md-toolbar-section-end">
           <md-field md-clearable>
-            <md-input placeholder="article name..." v-model="search" />
+            <md-input placeholder="search..." v-model="search" />
             <md-menu md-size="medium" md-align-trigger>
               <md-button md-menu-trigger>
                 <md-icon class="tableCell">sort</md-icon>

@@ -228,6 +228,7 @@ export default {
     },
     updateFavorite(id) {
       this.$store.dispatch("removeFavorite", id);
+      this.$store.dispatch("setItemsFavorite", id);
     },
     removeFromBag(item) {
       this.$store.dispatch("removeFromBag", item);
