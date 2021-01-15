@@ -4,7 +4,7 @@ Store simulator is the simulation of a wholesale company which operate with sele
 The application will offer different functionality for user and store owner.
 A new costumer will receive an account after submit a request.
 
-![image](src/asset/mainView.png)
+![image](src/assets/mainView.png)
 
 ## Project setup
 
@@ -21,15 +21,16 @@ yarn serve
 after that the user will be able to access for the first time using the credential inserted the env file or a new account from created inside the application
 
 
-### Compiles and minifies for production
-```
-yarn build
-```
+<!-- ## Main functionality
 
-### Lints and fixes files
-```
-yarn lint
-```
+Manage the list of item and the users manager tab view update or remove the item and orders
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![image](src/assets/userTabView.png)
+
+Manage the item in the store in special vi -->
+
+## Technologies used
+
+FrontEnd:  VueJS, Vuex, Vue-Apollo, VueMaterial
+
+Backend: Express, Apollo, Graphql, Redis, Sequelise, Postgres
