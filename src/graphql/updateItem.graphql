@@ -1,0 +1,11 @@
+mutation updateItem($id:String, $newItemId:String, $image:String, $itemName:String, $itemClass:String, $amount:Int,$minAmount:Int,$price:Float){
+  updateItem(id:$id,newItemId:$newItemId, image:$image, itemName:$itemName, itemClass:$itemClass,amount:$amount, minAmount:$minAmount,price:$price){
+    itemId
+    itemName
+    image
+    amount	
+    minAmount
+    price
+    
+  }
+}

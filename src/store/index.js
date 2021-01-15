@@ -12,7 +12,7 @@ import GET_ORDERS from "../graphql/orders.graphql"
 import NEW_ORDER from "../graphql/newOrder.graphql"
 import DELETE_ORDER from "../graphql/deleteOrder.graphql"
 import NEW_ITEM from "../graphql/addItem.graphql"
-
+import UPDATE_ITEM from "../graphql/updateItem.graphql"
 
 export default new Vuex.Store({
   state: {
@@ -30,7 +30,8 @@ export default new Vuex.Store({
         itemId: ""
       }
     },
-    showNewItemDialog: {}
+    showNewItemDialog: {},
+    updateItemDialog: {},
   },
   mutations: {
     setItemsList(state, itemList) {
@@ -137,7 +138,26 @@ export default new Vuex.Store({
     },
     setUserSearch(state, value) {
       state.userSearchValue = value
+    },
+    setUpdateItemDialog(state, item) {
+      state.updateItemDialog = item
+    },
+    resetUpdateItemDialog(state) {
+      state.updateItemDialog = {}
+      state.updateItemDialog.updateItemDialog = false
+    },
+    updateItem(state, item) {
+      let index = state.items.map(item => item.itemId).indexOf(item.itemId)
+      state.items[index].itemId = item.itemId
+      state.items[index].image = item.image
+      state.items[index].itemName = item.itemName
+      state.items[index].itemClass = item.itemClass
+      state.items[index].amount = item.amount
+      state.items[index].minAmount = item.minAmount
+      state.items[index].price = item.price
+      state.items[index].updateItemDialog = false
     }
+
 
 
 
@@ -367,6 +387,35 @@ export default new Vuex.Store({
       commit
     }, id) {
       commit("setItemsFavorite", id)
+    },
+    setUpdateItemDialog({
+      commit
+    }, item) {
+      commit('setUpdateItemDialog', item)
+    },
+    resetUpdateItemDialog({
+      commit
+    }) {
+      commit('resetUpdateItemDialog')
+    },
+    async updateItem({
+      commit
+    }, item) {
+      await graphqlClient.mutate({
+        mutation: UPDATE_ITEM,
+        variables: {
+          id: item.id,
+          newItemId: item.itemId,
+          image: item.image,
+          itemName: item.itemName,
+          itemClass: item.itemClass,
+          amount: Number(item.amount),
+          minAmount: Number(item.minAmount),
+          price: Number(item.price)
+        }
+      })
+
+      commit("updateItem", item)
     }
 
 
@@ -383,6 +432,7 @@ export default new Vuex.Store({
     showNewItemDialog: state => state.showNewItemDialog,
     userSearchValue: state => state.userSearchValue,
     userSearchField: state => state.userSearchField,
+    updateItemDialog: state => state.updateItemDialog
   },
   modules: {}
 })

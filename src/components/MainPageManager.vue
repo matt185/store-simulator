@@ -47,6 +47,9 @@
         <md-table-cell md-label="min_Amount" md-sort-by="min_Amount">{{ item.minAmount }}</md-table-cell>
         <md-table-cell md-label="price" md-sort-by="price">{{ item.price }}</md-table-cell>
         <md-table-cell class="tableCell">
+          <md-button class="md-accent" @click="setItemToUpdate(item)">
+            <md-icon class="tableCell">edit</md-icon>
+          </md-button>
           <md-button class="md-accent" @click="setItemToDelete(item.itemId)">
             <md-icon class="tableCell">delete</md-icon>
           </md-button>
@@ -62,12 +65,14 @@
       @md-confirm="deleteItem()"
     />
     <newItemDialog />
+    <updateItemDialog />
   </div>
 </template>
 
 <script>
 import gql from "graphql-tag";
 import newItemDialog from "./NewItemDialog";
+import updateItemDialog from "./UpdateItemDialog";
 const toLower = text => {
   return text.toString().toLowerCase();
 };
@@ -81,7 +86,7 @@ const searchByName = (items, field, term) => {
 };
 export default {
   name: "MainPageManager",
-  components: { newItemDialog },
+  components: { newItemDialog, updateItemDialog },
   data: () => ({
     searchField: "itemId",
     search: null,
@@ -94,7 +99,8 @@ export default {
       itemName: "",
       amount: "",
       minAmount: "",
-      price: ""
+      price: "",
+      updateItemDialog: false
     }
   }),
   computed: {
@@ -115,6 +121,12 @@ export default {
     },
     openNewItemDialog() {
       this.$store.dispatch("setNewItemDialog", { newItemDialog: true });
+    },
+    setItemToUpdate(item) {
+      item.updateItemDialog = true;
+      item.id = item.itemId;
+      this.$store.dispatch("setUpdateItemDialog", item);
+      console.log(this.$store.state.updateDialogData);
     },
     deleteItem() {
       this.$apollo.mutate({

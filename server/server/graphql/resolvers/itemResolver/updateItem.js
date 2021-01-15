@@ -4,7 +4,8 @@ const {
 const isAuthorized = require('./../../../helper/isAuthorized')
 
 module.exports = async (_, {
-    itemId,
+    id,
+    newItemId,
     ItemName,
     ItemClass,
     amount,
@@ -22,13 +23,13 @@ module.exports = async (_, {
     if (permission) {
         return permission
     }
-    if (!itemId) {
+    if (!id) {
         throw new Error('item id missing')
     }
 
     let item = await Item.findOne({
         where: {
-            itemId
+            Id
         }
     })
 
@@ -38,6 +39,15 @@ module.exports = async (_, {
     }
     //* update the value
 
+    if (ItemId) {
+        await Item.update({
+            itemId: newItemId
+        }, {
+            where: {
+                itemId
+            }
+        })
+    }
     if (ItemName) {
         await Item.update({
             ItemName
