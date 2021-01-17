@@ -219,7 +219,6 @@ export default {
 
   methods: {
     logout() {
-      this.$router.push({ name: "Home", query: { redirect: "/" } });
       this.$apollo.mutate({
         mutation: gql`
           mutation {
@@ -227,7 +226,10 @@ export default {
           }
         `
       });
-      location.reload();
+
+      // location.reload();
+      this.$store.dispatch("fetchItemsList");
+      this.$router.push({ name: "Home", query: { redirect: "/" } });
     },
     setMenuVisible() {
       this.menuVisible = false;

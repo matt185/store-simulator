@@ -18,7 +18,7 @@ yarn start
 yarn serve
 ```
 
-after that the user will be able to access for the first time using the credential inserted the env file or a new account from created inside the application
+after that the user will be able to access for the first time using the credential inserted the env file or a new account create inside the application
 
 
 <!-- ## Main functionality

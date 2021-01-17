@@ -6,8 +6,8 @@ const isAuthorized = require('./../../../helper/isAuthorized')
 module.exports = async (_, {
     id,
     newItemId,
-    ItemName,
-    ItemClass,
+    itemName,
+    itemClass,
     amount,
     minAmount,
     price,
@@ -16,7 +16,6 @@ module.exports = async (_, {
     req
 }) => {
     //*  check for permission
-
     const permission = await isAuthorized(req)
 
     //*  check if the item is present
@@ -29,7 +28,7 @@ module.exports = async (_, {
 
     let item = await Item.findOne({
         where: {
-            Id
+            itemId: id
         }
     })
 
@@ -39,30 +38,30 @@ module.exports = async (_, {
     }
     //* update the value
 
-    if (ItemId) {
+    if (newItemId) {
         await Item.update({
             itemId: newItemId
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
-    if (ItemName) {
+    if (itemName) {
         await Item.update({
-            ItemName
+            itemName
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
-    if (ItemClass) {
+    if (itemClass) {
         await Item.update({
-            ItemClass
+            itemClass
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
@@ -71,7 +70,7 @@ module.exports = async (_, {
             amount
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
@@ -80,7 +79,7 @@ module.exports = async (_, {
             minAmount
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
@@ -89,7 +88,7 @@ module.exports = async (_, {
             price
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
@@ -98,14 +97,14 @@ module.exports = async (_, {
             image
         }, {
             where: {
-                itemId
+                itemId: id
             }
         })
     }
 
     return await Item.findOne({
         where: {
-            itemId
+            itemId: id
         }
     })
 }

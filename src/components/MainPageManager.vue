@@ -126,7 +126,6 @@ export default {
       item.updateItemDialog = true;
       item.id = item.itemId;
       this.$store.dispatch("setUpdateItemDialog", item);
-      console.log(this.$store.state.updateDialogData);
     },
     deleteItem() {
       this.$apollo.mutate({

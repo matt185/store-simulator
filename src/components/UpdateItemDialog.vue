@@ -35,7 +35,7 @@
 
     <md-dialog-actions>
       <md-button class="md-primary" @click="closeDialog">Close</md-button>
-      <md-button class="md-primary" @click="updateItem">Save</md-button>
+      <md-button class="md-primary" @click.prevent="updateItem(dialogInfo)">Save</md-button>
     </md-dialog-actions>
   </md-dialog>
 </template>
@@ -66,8 +66,8 @@ export default {
     closeDialog() {
       this.$store.dispatch("resetUpdateItemDialog");
     },
-    updateItem() {
-      this.$store.dispatch("updateItem", this.form);
+    updateItem(item) {
+      this.$store.dispatch("updateItem", item);
     }
   }
 };
