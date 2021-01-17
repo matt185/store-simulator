@@ -1,36 +1,55 @@
 <template>
   <md-dialog class="newItemDialog" :md-active.sync="dialogInfo.updateItemDialog">
-    <md-dialog-title>New Item</md-dialog-title>
+    <md-toolbar class="md-primary">
+      <h3 class="md-title item-dialog-toolbar">Update {{dialogInfo.id}}</h3>
+    </md-toolbar>
     <div class="md-layout-item md-small-size-100 newItemDialog">
-      <md-field class="selectionField">
-        <label for="itemId">ItemId</label>
-        <md-input name="itemId" id="itemId" v-model="dialogInfo.itemId" />
-      </md-field>
-      <md-field class="selectionField">
-        <label for="image">Image Link</label>
-        <!-- <md-file name="image" id="image" v-model="form.image" " /> -->
-        <md-input name="image" id="image" v-model="dialogInfo.image" />
-      </md-field>
-      <md-field class="selectionField">
-        <label for="itemClass">ItemClass</label>
-        <md-input name="itemClass" id="itemClass" v-model="dialogInfo.itemClass" />
-      </md-field>
-      <md-field class="selectionField">
-        <label for="itemName">ItemName</label>
-        <md-input name="itemName" id="itemName" v-model="dialogInfo.itemName" />
-      </md-field>
-      <md-field class="selectionField">
-        <label for="amount">Amount</label>
-        <md-input name="amount" id="amount" v-model="dialogInfo.amount" />
-      </md-field>
-      <md-field class="selectionField">
-        <label for="minAmount">minAmount</label>
-        <md-input name="minAmount" id="minAmount" v-model="dialogInfo.minAmount" />
-      </md-field>
-      <md-field class="selectionField">
-        <label for="price">Price</label>
-        <md-input name="price" id="price" v-model="dialogInfo.price" />
-      </md-field>
+      <div class="idField">
+        <md-field class="selectionField">
+          <label for="itemId">ItemId</label>
+          <md-input name="itemId" id="itemId" v-model="dialogInfo.itemId" />
+        </md-field>
+      </div>
+      <div class="imageField">
+        <md-field class="selectionField">
+          <label for="image">Image Link</label>
+          <md-input name="image" id="image" v-model="dialogInfo.image" />
+        </md-field>
+      </div>
+      <div class="productInfo">
+        <div class="itemClass">
+          <md-field class="selectionField">
+            <label for="itemClass">ItemClass</label>
+            <md-input name="itemClass" id="itemClass" v-model="dialogInfo.itemClass" />
+          </md-field>
+        </div>
+        <div class="itemName">
+          <md-field class="selectionField">
+            <label for="itemName">ItemName</label>
+            <md-input name="itemName" id="itemName" v-model="dialogInfo.itemName" />
+          </md-field>
+        </div>
+      </div>
+      <div class="product-price">
+        <div class="amount">
+          <md-field class="selectionField">
+            <label for="amount">Amount</label>
+            <md-input name="amount" id="amount" v-model="dialogInfo.amount" />
+          </md-field>
+        </div>
+        <div class="minAmount">
+          <md-field class="selectionField">
+            <label for="minAmount">minAmount</label>
+            <md-input name="minAmount" id="minAmount" v-model="dialogInfo.minAmount" />
+          </md-field>
+        </div>
+        <div class="price">
+          <md-field class="selectionField">
+            <label for="price">Price</label>
+            <md-input name="price" id="price" v-model="dialogInfo.price" />
+          </md-field>
+        </div>
+      </div>
     </div>
 
     <md-dialog-actions>
@@ -74,6 +93,9 @@ export default {
 </script>
 
 <style>
+.item-dialog-toolbar {
+  width: 100%;
+}
 .newItemDialog {
   height: fit-content;
 }
