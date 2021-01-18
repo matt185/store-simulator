@@ -18,7 +18,12 @@
         <div>
           <md-field class="md-layout-item md-size-25">
             <label>amount</label>
-            <md-input v-model="quantity" type="number" min="0"></md-input>
+            <md-input
+              v-model="quantity"
+              type="number"
+              min="0"
+              :max="showItemDialogData.itemData.amount"
+            ></md-input>
           </md-field>
         </div>
         <span class="md-caption">Total</span>
