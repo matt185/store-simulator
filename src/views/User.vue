@@ -182,7 +182,7 @@ export default {
         variables: {
           username: this.form.username,
           email: this.form.email,
-          password: "1234"
+          password: this.form.username
         }
       });
       this.searched.push({

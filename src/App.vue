@@ -145,19 +145,20 @@ export default {
     favoriteList: []
   }),
 
-  beforeCreate() {
-    this.$store.dispatch("fetchItemsList");
-    this.$store.dispatch("fetchFavoriteList");
-    this.$store.dispatch("fetchBagList");
-    this.$store.dispatch("fetchOrders");
-  },
+  beforeCreate() {},
   beforeDestroy() {
     this.$store.dispatch("fetchItemsList");
     this.$store.dispatch("fetchFavoriteList");
     this.$store.dispatch("fetchBagList");
     this.$store.dispatch("fetchOrders");
   },
-  async created() {},
+  async created() {
+    this.$store.dispatch("fetchItemsList");
+    this.$store.dispatch("fetchFavoriteList");
+    this.$store.dispatch("fetchBagList");
+    this.$store.dispatch("fetchOrders");
+  },
+
   computed: {
     ...mapGetters(["favorite", "bags"]),
 
@@ -196,7 +197,7 @@ export default {
           }
         `
       });
-
+      location.reload();
       this.$store.dispatch("fetchItemsList");
       this.$router.push({ name: "Home", query: { redirect: "/" } });
     },
