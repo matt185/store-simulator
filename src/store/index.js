@@ -74,6 +74,7 @@ export default new Vuex.Store({
     }) {
       let newItem = {
         itemId: item.itemId,
+        image: item.image,
         quantity,
         TotalPrice: item.price * quantity
       }

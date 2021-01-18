@@ -71,9 +71,6 @@ export default {
       }
     },
     addToBag(item, quantity) {
-      if (quantity > this.$store.state.showItemDialogData.itemData.amount) {
-        quantity = this.$store.state.showItemDialogData.itemData.amount;
-      }
       this.$store.dispatch("addToBag", { item, quantity });
     }
   }
