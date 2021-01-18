@@ -19,7 +19,7 @@
         <md-table-cell md-label="Status">{{ item.status }}</md-table-cell>
         <md-table-cell class="tableCell">
           <div class="tab_button">
-            <md-button @click="setDialog(item.itemId,'search')">
+            <md-button @click="setOrderDialogData(item)">
               <md-icon>search</md-icon>
             </md-button>
             <md-button class="md-accent" @click="removeOrder(item.orderId)">
@@ -30,10 +30,12 @@
       </md-table-row>
     </md-table>
     <div class="md-toolbar-section-end"></div>
+    <OrderDialog />
   </div>
 </template>
 
 <script>
+import OrderDialog from "./OrderDialog";
 const toLower = text => {
   return text.toString().toLowerCase();
 };
@@ -47,6 +49,7 @@ const searchByName = (items, term) => {
 };
 export default {
   name: "Order",
+  components: { OrderDialog },
   data() {
     return { search: null, searched: [] };
   },
@@ -54,7 +57,7 @@ export default {
   created() {},
   computed: {
     orders() {
-      return this.$store.getters.orders;
+      return this.$store.state.orders;
     }
   },
   methods: {
@@ -63,6 +66,10 @@ export default {
     },
     removeOrder(id) {
       this.$store.dispatch("deleteOrder", id);
+    },
+    setOrderDialogData(item) {
+      item.showOrderDialog = true;
+      this.$store.dispatch("setOrderDialogData", item);
     }
   }
 };
