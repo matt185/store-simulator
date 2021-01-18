@@ -82,15 +82,6 @@
               @md-cancel="onCancel"
               @md-confirm="onConfirm"
             />
-
-            <!-- <md-dialog :md-active.sync="deleteDialog">
-            <md-dialog-title>Delete</md-dialog-title>
-
-            <md-dialog-actions>
-              <md-button class="md-primary" @click="deleteDialog = false">cancel</md-button>
-              <md-button class="md-primary" @click="onConfirm">delete</md-button>
-            </md-dialog-actions>
-            </md-dialog>-->
           </md-card-content>
         </md-card>
       </div>
@@ -117,7 +108,6 @@ export default {
   data: () => {
     return {
       me: {},
-      // role: "",
       form: {
         username: "",
         email: ""
@@ -155,7 +145,6 @@ export default {
     });
     this.users = response.data.users;
     this.searched = this.users;
-    // console.log("searched", this.searched);
   },
   methods: {
     onConfirm() {

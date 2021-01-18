@@ -1,5 +1,4 @@
 require('dotenv').config();
-//const db = require('./database/models');
 const app = require('./server/app');
 const {
     SERVER_PORT

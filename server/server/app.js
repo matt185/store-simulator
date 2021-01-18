@@ -1,8 +1,6 @@
 require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
-// const http = require('http');
-// const morgan = require('morgan')
 var redis = require("redis");
 var session = require('express-session');
 var redisStore = require('connect-redis')(session);

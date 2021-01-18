@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     onDone(val) {
-      console.log(val.data.signUp);
       if (val.data.signUp.user) {
         this.userData = val.data.signUp.user.username;
         this.$router.replace("/");

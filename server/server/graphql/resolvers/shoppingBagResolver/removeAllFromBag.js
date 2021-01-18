@@ -20,7 +20,6 @@ module.exports = async (_, __, {
             }
         })
         const newAmount = itemToUpdate.amount + item.quantity
-        console.log(newAmount)
         await Item.update({
             amount: newAmount
         }, {

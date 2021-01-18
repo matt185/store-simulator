@@ -5,16 +5,13 @@
         <div class="md-toolbar-section-start">
           <h1 class="md-title">Order List</h1>
         </div>
-
         <md-field md-clearable class="md-toolbar-section-end">
           <md-input placeholder="Search by Order..." v-model="search" @input="searchOnTable" />
         </md-field>
       </md-table-toolbar>
-
       <md-table-empty-state md-label="No order found">
         <md-button class="md-primary md-raised" to="/">Add</md-button>
       </md-table-empty-state>
-
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell md-label="OrderId">{{ item.orderId }}</md-table-cell>
         <md-table-cell md-label="quantity">{{ item.itemAmount }}</md-table-cell>
@@ -50,7 +47,6 @@ const searchByName = (items, term) => {
 };
 export default {
   name: "Order",
-  //   components: { ItemDialog },
   data() {
     return { search: null, searched: [] };
   },
@@ -62,9 +58,6 @@ export default {
     }
   },
   methods: {
-    newUser() {
-      window.alert("Noop");
-    },
     searchOnTable() {
       this.searched = searchByName(this.orders, this.search);
     },

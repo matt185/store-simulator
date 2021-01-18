@@ -30,6 +30,8 @@ const removeAllFromBag = require('./shoppingBagResolver/removeAllFromBag')
 const orders = require('./orderResolver/orders')
 const newOrder = require('./orderResolver/newOrder')
 const deleteOrder = require('./orderResolver/deleteOrder')
+
+
 module.exports = {
     Query: {
         hello: hello,

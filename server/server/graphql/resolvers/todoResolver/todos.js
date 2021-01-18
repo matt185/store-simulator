@@ -11,7 +11,6 @@ module.exports = async (_, __, {
     if (permission) {
         return permission
     }
-    console.log(permission)
     let messages = await Todos.findAll({
         where: {
             userId: req.session.userId

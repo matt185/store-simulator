@@ -134,11 +134,6 @@ export default {
     });
     this.todos = response.data.todos;
     this.cachedTodos = this.todos;
-    // const todoAreaList = this.cachedTodos.map(todo => todo.title);
-    // this.todoArea = todoAreaList.filter(function(item, pos) {
-    //   return todoAreaList.indexOf(item) == pos;
-    // });
-    // console.log(this.todoArea);
   },
   async mounted() {
     const response = await this.$apollo.query({

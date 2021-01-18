@@ -57,7 +57,6 @@ export default {
       if (val.data.signIn.user) {
         this.userData = val.data.signIn.user.username;
         this.$router.replace("/");
-        // location.reload();
       } else if (val.data.signIn.error.field === "username") {
         this.errorComment = val.data.signIn.error.message;
         this.hasMessagesUsername = "show";

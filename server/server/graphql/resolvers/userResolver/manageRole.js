@@ -20,7 +20,7 @@ module.exports = async (_, {
         throw new Error("You don't have the permission for this operation")
     }
 
-    let user = await User.update({
+    await User.update({
         role
     }, {
         where: {

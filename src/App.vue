@@ -84,7 +84,6 @@
 
                 <div class="md-list-item-text" to="/shopping_bag">
                   <span class="md-headline">{{item.itemId}}</span>
-                  <!-- <span>{{item.itemName}}</span> -->
                   <p v-if="item.quantity >1" class="md-caption">({{item.quantity}} items saved)</p>
                   <p v-else class="md-caption">({{item.quantity}} item saved)</p>
                 </div>
@@ -148,7 +147,6 @@ export default {
     me: {},
     menuVisible: false,
     search: "",
-    // searchField: "all",
     favoriteList: []
   }),
 
@@ -164,33 +162,10 @@ export default {
     this.$store.dispatch("fetchBagList");
     this.$store.dispatch("fetchOrders");
   },
-  async created() {
-    // const response = await this.$apollo.query({
-    //   query: gql`
-    //     query favorites {
-    //       favorites {
-    //         itemId
-    //         amount
-    //         itemName
-    //       }
-    //     }
-    //   `
-    // });
-    // this.favoriteList = this.$store.state.favorite;
-    // console.log(this.$store.state.favorite);
-  },
+  async created() {},
   computed: {
     ...mapGetters(["favorite", "bags"]),
-    // items() {
-    //   if (this.$store.state.userSearchField === "all") {
-    //     return this.$store.state.items;
-    //   }
-    //   return searchByName(
-    //     this.$store.state.items,
-    //     this.searchField,
-    //     this.search
-    //   );
-    // },
+
     selectionList() {
       let filter = this.searchField;
       let items = this.$store.state.items;
@@ -227,7 +202,6 @@ export default {
         `
       });
 
-      // location.reload();
       this.$store.dispatch("fetchItemsList");
       this.$router.push({ name: "Home", query: { redirect: "/" } });
     },

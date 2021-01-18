@@ -85,7 +85,6 @@ module.exports = async (_, {
             username
         }
     })
-    // req.session.userId = newUser.userId
     return {
         user: newUser
     }

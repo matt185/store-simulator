@@ -23,7 +23,7 @@ extend type Mutation{
     addToBag(itemId:String!,quantity:Int!):ShoppingBag!
     removeFromBag(itemId:String!):ShoppingBag!
     removeAllFromBag:Boolean
-    # incrementAmount(itemId:String!,quantity:Int!):ShoppingBag!
-    # decrementAmount(itemId: String!, quantity: Int!):ShoppingBag!
+    incrementAmount(itemId:String!,quantity:Int!):ShoppingBag!
+    decrementAmount(itemId: String!, quantity: Int!):ShoppingBag!
 }
 `

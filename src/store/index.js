@@ -401,7 +401,6 @@ export default new Vuex.Store({
     async updateItem({
       commit
     }, item) {
-      console.log("adsf", item)
       await graphqlClient.mutate({
         mutation: UPDATE_ITEM,
         variables: {

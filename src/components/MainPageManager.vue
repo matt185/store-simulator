@@ -18,7 +18,6 @@
                 <md-menu-item @click="searchField='itemId'">Item Id</md-menu-item>
                 <md-menu-item @click="searchField='itemClass'">Item Class</md-menu-item>
                 <md-menu-item @click="searchField='itemName'">Item Name</md-menu-item>
-                <!-- <md-menu-item @click="searchField(4)">Price</md-menu-item> -->
               </md-menu-content>
             </md-menu>
           </md-field>
@@ -30,8 +29,8 @@
       </md-table-toolbar>
 
       <md-table-empty-state
-        md-label="No users found"
-        :md-description="`No user found for this '${search}' query. Try a different search term or create a new user.`"
+        md-label="No item found"
+        :md-description="`No item found for this '${search}' query. Try a different search term`"
       >
         <md-button class="md-primary md-raised" @click="newItem">Create New User</md-button>
       </md-table-empty-state>
@@ -58,7 +57,7 @@
     </md-table>
     <md-dialog-confirm
       :md-active.sync="deleteDialog"
-      md-title="Delete"
+      :md-title="`delete ${this.itemToDelete}`"
       md-confirm-text="delete"
       md-cancel-text="cancel"
       @md-cancel="onCancel"
@@ -152,7 +151,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #itemTable {
   display: flex;

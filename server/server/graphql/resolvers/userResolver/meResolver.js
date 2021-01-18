@@ -8,7 +8,6 @@ module.exports = async (_, __, {
 
 
 }) => {
-    // console.log("assadsafdsafdsåå", req.session.userId)
     if (!req.session.userId) {
         return null
     }
