@@ -100,19 +100,14 @@
         <md-toolbar class="md-transparent" md-elevation="2">Menu</md-toolbar>
         <div v-if="me">
           <md-list>
-            <md-list-item @click="setMenuVisible" to="/user">
+            <md-list-item v-if="auth" @click="setMenuVisible" to="/user">
               <md-icon id="icon-signUp">person</md-icon>
-              <span class="md-list-item-text">{{me.username}}</span>
+              <span class="md-list-item-text">User setting</span>
             </md-list-item>
 
             <md-list-item @click="setMenuVisible" to="/shopping_bag">
               <md-icon>shopping_bag</md-icon>
               <span class="md-list-item-text">Shopping Bag</span>
-            </md-list-item>
-
-            <md-list-item @click="setMenuVisible" to="/favorite">
-              <md-icon>favorite</md-icon>
-              <span class="md-list-item-text">Favorites</span>
             </md-list-item>
 
             <md-list-item @click="setMenuVisible">

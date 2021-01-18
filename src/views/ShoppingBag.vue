@@ -10,6 +10,9 @@
       <md-tab md-label="order">
         <Order />
       </md-tab>
+      <md-tab md-label="account">
+        <UserSetting />
+      </md-tab>
     </md-tabs>
   </div>
 </template>
@@ -18,9 +21,10 @@
 import Favorite from "../components/Favorite";
 import BagTab from "../components/BagTab";
 import Order from "../components/OrderView";
+import UserSetting from "../components/userSetting";
 export default {
   name: "ShoppingBag",
-  components: { Favorite, BagTab, Order }
+  components: { Favorite, BagTab, Order, UserSetting }
 };
 </script>
 
