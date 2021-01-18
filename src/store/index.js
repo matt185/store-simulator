@@ -32,6 +32,7 @@ export default new Vuex.Store({
     },
     showNewItemDialog: {},
     updateItemDialog: {},
+    orderDialogData: {}
   },
   mutations: {
     setItemsList(state, itemList) {
@@ -156,6 +157,12 @@ export default new Vuex.Store({
       state.items[index].minAmount = item.minAmount
       state.items[index].price = item.price
       state.items[index].updateItemDialog = false
+    },
+    setOrderDialogData(state, item) {
+      state.orderDialogData = item
+    },
+    resetOrderDialogData(state) {
+      state.orderDialogData = false
     }
 
 
@@ -417,6 +424,16 @@ export default new Vuex.Store({
 
       commit("updateItem", item)
       commit('resetUpdateItemDialog')
+    },
+    setOrderDialogData({
+      commit
+    }, item) {
+      commit("setOrderDialogData", item)
+    },
+    resetOrderDialogData({
+      commit
+    }) {
+      commit("resetOrderDialogData")
     }
 
 
@@ -433,7 +450,8 @@ export default new Vuex.Store({
     showNewItemDialog: state => state.showNewItemDialog,
     userSearchValue: state => state.userSearchValue,
     userSearchField: state => state.userSearchField,
-    updateItemDialog: state => state.updateItemDialog
+    updateItemDialog: state => state.updateItemDialog,
+    orderDialogData: state => state.orderDialogData
   },
   modules: {}
 })
