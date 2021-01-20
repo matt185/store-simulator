@@ -6,6 +6,8 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed-Undo": "npx sequelize-cli db:seed:undo",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
