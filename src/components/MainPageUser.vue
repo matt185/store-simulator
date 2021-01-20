@@ -1,6 +1,5 @@
 <template>
   <div id="itemTable">
-    {{this.$store.state.userSearchValue}}
     <md-card v-for="(item,i) in items" :key="i" md-with-hover>
       <md-card-header>
         <md-card-media md-big>
@@ -34,7 +33,6 @@
 
 <script>
 import ItemDialog from "./ItemDialog";
-import gql from "graphql-tag";
 
 const toLower = text => {
   return text.toString().toLowerCase();
@@ -61,7 +59,7 @@ export default {
     },
     items() {
       if (!this.$store.state.userSearchValue) {
-        return this.$store.state.items;
+        return this.$store.getters.items;
       }
       return searchByName(
         this.$store.state.items,
@@ -92,17 +90,6 @@ export default {
       item.showItemDialog = true;
       this.$store.dispatch("setShowItemData", item);
     }
-  },
-  apollo: {
-    me: gql`
-      query {
-        me {
-          userId
-          username
-          role
-        }
-      }
-    `
   }
 };
 </script>

@@ -30,7 +30,12 @@ import gql from "graphql-tag";
 export default {
   name: "UserSetting",
   data: () => {
-    return { me: {}, deleteDialog: false, checked: false };
+    return { deleteDialog: false, checked: false };
+  },
+  computed: {
+    me() {
+      return this.$store.state.me;
+    }
   },
   methods: {
     onConfirm() {
@@ -44,25 +49,25 @@ export default {
           username: this.me.username
         }
       });
-      location.reload();
       this.$router.push({ name: "Home", query: { redirect: "/" } });
+      location.reload();
     },
     onCancel() {
       this.deleteDialog = false;
     }
-  },
-  apollo: {
-    me: {
-      query: gql`
-        query me {
-          me {
-            username
-            role
-          }
-        }
-      `
-    }
   }
+  // apollo: {
+  //   me: {
+  //     query: gql`
+  //       query me {
+  //         me {
+  //           username
+  //           role
+  //         }
+  //       }
+  //     `
+  //   }
+  // }
 };
 </script>
 

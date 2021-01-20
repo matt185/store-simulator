@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import graphqlClient from '../apollo';
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex)
 import gql from 'graphql-tag'
+import isAuth from "../../server/server/helper/isAuth"
 import GET_ITEMS from "../graphql/items.graphql"
 import GET_FAVORITE from "../graphql/favorite.graphql"
 import GET_BAG from "../graphql/bags.graphql"
@@ -32,7 +34,9 @@ export default new Vuex.Store({
     },
     showNewItemDialog: {},
     updateItemDialog: {},
-    orderDialogData: {}
+    orderDialogData: {},
+    me: {},
+    auth: false
   },
   mutations: {
     setItemsList(state, itemList) {
@@ -164,6 +168,18 @@ export default new Vuex.Store({
     },
     resetOrderDialogData(state) {
       state.orderDialogData = false
+    },
+    setMe(state, item) {
+      state.me = item
+      console.log("store", state.me)
+
+    },
+    resetMe(state) {
+      state.me = {}
+      console.log("store", state.me)
+    },
+    setAuth(state, val) {
+      state.auth = isAuth(val)
     }
 
 
@@ -435,7 +451,20 @@ export default new Vuex.Store({
       commit
     }) {
       commit("resetOrderDialogData")
+    },
+    login({
+      commit
+    }, item) {
+      commit("setMe", item)
+      commit("setAuth", item)
+    },
+    logout({
+      commit
+    }) {
+      commit("resetMe")
+      commit("setAuth")
     }
+
 
 
   },
@@ -452,7 +481,9 @@ export default new Vuex.Store({
     userSearchValue: state => state.userSearchValue,
     userSearchField: state => state.userSearchField,
     updateItemDialog: state => state.updateItemDialog,
-    orderDialogData: state => state.orderDialogData
+    orderDialogData: state => state.orderDialogData,
+    me: state => state.me,
+    auth: state => state.auth
   },
-  modules: {}
+  plugins: [createPersistedState()]
 })

@@ -98,7 +98,7 @@
 
       <md-app-drawer :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="2">Menu</md-toolbar>
-        <div v-if="me">
+        <div v-if="me.username">
           <md-list>
             <md-list-item v-if="auth" @click="setMenuVisible" to="/user">
               <md-icon id="icon-signUp">person</md-icon>
@@ -133,13 +133,13 @@
 
 <script>
 import gql from "graphql-tag";
-import { partialAuth } from "./../server/server/constant";
+// import { partialAuth } from "./../server/server/constant";
 import { mapGetters } from "vuex";
 
 export default {
   name: "LastRowFixed",
   data: () => ({
-    me: {},
+    // me: {},
     menuVisible: false,
     search: "",
     favoriteList: []
@@ -179,12 +179,17 @@ export default {
       return result;
     },
     auth() {
-      if (this.me) {
-        if (partialAuth.includes(this.me.role)) {
-          return true;
-        }
-      }
-      return false;
+      return this.$store.getters.auth;
+      // if (this.me) {
+      //   if (partialAuth.includes(this.me.role)) {
+      //     return true;
+      //   }
+      // }
+      // return false;
+    },
+    me() {
+      console.log(this.$store.state.me);
+      return this.$store.state.me;
     }
   },
 
@@ -198,6 +203,7 @@ export default {
         `
       });
       location.reload();
+      this.$store.dispatch("logout");
       this.$store.dispatch("fetchItemsList");
       this.$router.push({ name: "Home", query: { redirect: "/" } });
     },
@@ -217,19 +223,19 @@ export default {
     setUserSearch() {
       this.$store.dispatch("setUserSearch", this.search);
     }
-  },
-  apollo: {
-    me: {
-      query: gql`
-        query me {
-          me {
-            username
-            role
-          }
-        }
-      `
-    }
   }
+  // apollo: {
+  //   me: {
+  //     query: gql`
+  //       query me {
+  //         me {
+  //           username
+  //           role
+  //         }
+  //       }
+  //     `
+  //   }
+  // }
 };
 </script>
 
