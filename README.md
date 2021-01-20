@@ -12,8 +12,15 @@ The project need Postgres and Redis installed and running
 
 Also need to setup the .env file following the .env.example file present in the project root.
 
+set the project and run migration and user seed
 ```
 yarn install
+yarn migrate
+yarn seed
+```
+
+start the server and the frontend
+```
 yarn start
 yarn serve
 ```
