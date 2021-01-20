@@ -91,7 +91,7 @@
 
 <script>
 import gql from "graphql-tag";
-import { partialAuth } from "./../../server/server/constant";
+// import { partialAuth } from "./../../server/server/constant";
 const toLower = text => {
   return text.toString().toLowerCase();
 };
@@ -107,7 +107,7 @@ export default {
   name: "User",
   data: () => {
     return {
-      me: {},
+      // me: {},
       form: {
         username: "",
         email: ""
@@ -122,13 +122,17 @@ export default {
     };
   },
   computed: {
+    me() {
+      return this.$store.state.me;
+    },
     auth() {
-      if (this.me) {
-        if (partialAuth.includes(this.me.role)) {
-          return true;
-        }
-      }
-      return false;
+      return this.$store.state.auth;
+      // if (this.me) {
+      //   if (partialAuth.includes(this.me.role)) {
+      //     return true;
+      //   }
+      // }
+      // return false;
     }
   },
   async created() {

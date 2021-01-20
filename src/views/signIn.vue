@@ -1,45 +1,42 @@
 <template>
   <div>
-    <div v-if="!me">
-      <ApolloMutation
-        :mutation="require('../graphql/signIn.graphql')"
-        :variables="{username,password}"
-        @done="onDone"
-      >
-        <template v-slot="{mutate}">
-          <form v-on:submit.prevent=" mutate()">
-            <md-card class="md-inputCard">
-              <md-card-header>
-                <div class="md-title">SignIn</div>
-              </md-card-header>
-              <md-field :class="usernameClass">
-                <label>Username</label>
-                <md-input v-model="username" type="textarea" id="username" required></md-input>
-                <span class="md-error">Username not inserted or wrong</span>
-              </md-field>
-              <md-field :class="passwordClass">
-                <label>Password</label>
-                <md-input
-                  v-model="password"
-                  type="password"
-                  id="password"
-                  required
-                  @keyup.enter="mutate()"
-                ></md-input>
-                <span class="md-error">Wrong password</span>
-              </md-field>
-              <md-button class="md-dense md-raised md-primary" @click="mutate()">Submit</md-button>
-            </md-card>
-          </form>
-        </template>
-      </ApolloMutation>
-    </div>
-    <div v-else>{{me.username}}</div>
+    <ApolloMutation
+      :mutation="require('../graphql/signIn.graphql')"
+      :variables="{username,password}"
+      @done="onDone"
+    >
+      <template v-slot="{mutate}">
+        <form v-on:submit.prevent=" mutate()">
+          <md-card class="md-inputCard">
+            <md-card-header>
+              <div class="md-title">SignIn</div>
+            </md-card-header>
+            <md-field :class="usernameClass">
+              <label>Username</label>
+              <md-input v-model="username" type="textarea" id="username" required></md-input>
+              <span class="md-error">Username not inserted or wrong</span>
+            </md-field>
+            <md-field :class="passwordClass">
+              <label>Password</label>
+              <md-input
+                v-model="password"
+                type="password"
+                id="password"
+                required
+                @keyup.enter="mutate()"
+              ></md-input>
+              <span class="md-error">Wrong password</span>
+            </md-field>
+            <md-button class="md-dense md-raised md-primary" @click="mutate()">Submit</md-button>
+          </md-card>
+        </form>
+      </template>
+    </ApolloMutation>
   </div>
 </template>
 
 <script>
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 export default {
   data() {
     return {
@@ -54,6 +51,11 @@ export default {
   },
   methods: {
     onDone(val) {
+      this.$store.dispatch("login", val.data.signIn.user);
+      this.$store.dispatch("fetchItemsList");
+      this.$store.dispatch("fetchFavoriteList");
+      this.$store.dispatch("fetchBagList");
+      this.$store.dispatch("fetchOrders");
       if (val.data.signIn.user) {
         this.userData = val.data.signIn.user.username;
         this.$router.replace("/");
@@ -68,6 +70,9 @@ export default {
     }
   },
   computed: {
+    // me() {
+    //   return this.$store.state.me;
+    // },
     usernameClass() {
       return {
         "md-invalid": this.hasMessagesUsername
@@ -78,19 +83,19 @@ export default {
         "md-invalid": this.hasMessagesPassword
       };
     }
-  },
-  apollo: {
-    me: {
-      query: gql`
-        query me {
-          me {
-            username
-            role
-          }
-        }
-      `
-    }
   }
+  // apollo: {
+  //   me: {
+  //     query: gql`
+  //       query me {
+  //         me {
+  //           username
+  //           role
+  //         }
+  //       }
+  //     `
+  //   }
+  // }
 };
 </script>
 
