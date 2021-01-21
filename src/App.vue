@@ -133,13 +133,11 @@
 
 <script>
 import gql from "graphql-tag";
-// import { partialAuth } from "./../server/server/constant";
 import { mapGetters } from "vuex";
 
 export default {
   name: "LastRowFixed",
   data: () => ({
-    // me: {},
     menuVisible: false,
     search: "",
     favoriteList: []
@@ -180,12 +178,6 @@ export default {
     },
     auth() {
       return this.$store.getters.auth;
-      // if (this.me) {
-      //   if (partialAuth.includes(this.me.role)) {
-      //     return true;
-      //   }
-      // }
-      // return false;
     },
     me() {
       console.log(this.$store.state.me);
@@ -224,18 +216,6 @@ export default {
       this.$store.dispatch("setUserSearch", this.search);
     }
   }
-  // apollo: {
-  //   me: {
-  //     query: gql`
-  //       query me {
-  //         me {
-  //           username
-  //           role
-  //         }
-  //       }
-  //     `
-  //   }
-  // }
 };
 </script>
 

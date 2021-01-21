@@ -36,7 +36,6 @@
 </template>
 
 <script>
-// import gql from "graphql-tag";
 export default {
   data() {
     return {
@@ -70,9 +69,6 @@ export default {
     }
   },
   computed: {
-    // me() {
-    //   return this.$store.state.me;
-    // },
     usernameClass() {
       return {
         "md-invalid": this.hasMessagesUsername
@@ -84,18 +80,6 @@ export default {
       };
     }
   }
-  // apollo: {
-  //   me: {
-  //     query: gql`
-  //       query me {
-  //         me {
-  //           username
-  //           role
-  //         }
-  //       }
-  //     `
-  //   }
-  // }
 };
 </script>
 

@@ -107,7 +107,6 @@ export default {
   name: "User",
   data: () => {
     return {
-      // me: {},
       form: {
         username: "",
         email: ""
@@ -127,12 +126,6 @@ export default {
     },
     auth() {
       return this.$store.state.auth;
-      // if (this.me) {
-      //   if (partialAuth.includes(this.me.role)) {
-      //     return true;
-      //   }
-      // }
-      // return false;
     }
   },
   async created() {
@@ -221,18 +214,6 @@ export default {
     setUserToDelete(name) {
       this.userToDelete = name;
       this.deleteDialog = true;
-    }
-  },
-  apollo: {
-    me: {
-      query: gql`
-        query me {
-          me {
-            username
-            role
-          }
-        }
-      `
     }
   }
 };
